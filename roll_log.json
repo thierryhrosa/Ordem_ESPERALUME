@@ -1,0 +1,16 @@
+[
+    {
+        "who": "MESTRE",
+        "time": "2025-11-15 13:37:50",
+        "qty": 1,
+        "type": "d20",
+        "results": [
+            11
+        ],
+        "subtotal": 11,
+        "attr": null,
+        "attr_bonus": 0,
+        "total": 11,
+        "level": "Normal"
+    }
+]
