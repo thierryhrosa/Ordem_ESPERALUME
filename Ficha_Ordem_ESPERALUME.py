@@ -221,6 +221,31 @@ elif active == "Ficha":
             save_ficha(player, new_f)
             st.success("Ficha salva com sucesso.")
         st.markdown("</div>", unsafe_allow_html=True)
+# ---- Botão: Excluir minha ficha ----
+if st.button("🗑️ Excluir minha ficha"):
+    # pede confirmação por escrita para evitar exclusões acidentais
+    st.warning("Atenção: essa ação é permanente. Para confirmar, digite o nome exato do personagem abaixo e clique em 'Confirmar exclusão'.")
+    confirm_name = st.text_input("Digite o nome do personagem para confirmar exclusão:", key=f"confirm_del_input_{player}")
+
+    if st.button("Confirmar exclusão", key=f"confirm_del_btn_{player}"):
+        if not confirm_name:
+            st.error("Digite o nome do personagem para confirmar.")
+        elif confirm_name.strip() != player:
+            st.error("Nome digitado não confere. Exclusão cancelada.")
+        else:
+            # chama a função existente que remove o arquivo e limpa rolls relacionados
+            ok = delete_ficha(player)
+            if ok:
+                st.success("Ficha excluída com sucesso.")
+                # limpa sessão e volta para a tela de login
+                st.session_state["current_user"] = None
+                st.session_state["active_tab"] = "Login"
+                st.info("Você foi desconectado. Clique em 'Ir para Login' se necessário.")
+                if st.button("Ir para Login", key=f"goto_login_after_del_{player}"):
+                    st.session_state["current_user"] = None
+                    st.session_state["active_tab"] = "Login"
+            else:
+                st.error("Erro ao excluir a ficha. Verifique permissões do arquivo.")
 
 # ---------------- ROLADOR TAB ----------------
 elif active == "Rolador":
@@ -444,4 +469,5 @@ elif active == "Mestre":
             clear_log()
             st.session_state["active_tab"] = "Historico"  # ou qualquer aba 
             st.experimental_set_query_paramsst.query_params()  # força atualização do estado
+
         st.markdown("</div>", unsafe_allow_html=True)
