@@ -101,9 +101,28 @@ ITEM_DATABASE = {
         "Descrição": "Desenho do Colt com seu pai logo atras."
     },
     "Livros de Sobrevivência Básica, Intermediário, Avançada": {
-        "Descrição": "Ganha +Intelecto na rolagem do livro usado, Básica: +1, Intermedíario: +2, Avançada: +3."
+        "Descrição": "Ganha +Intelecto na rolagem: Básica: +1, Intermedíario: +2, Avançada: +3."
+    },
+    "Rádio de Comunicação": {
+        "Descrição": "Serve para acessar alguma torre de comunicação."
+    },
+    "Garrafa de Água": {
+        "Descrição": "Recupera +1 Pontos de Sanidade ao tomar."
+    },
+    "Corda": {
+        "Descrição": "Uso multíplo."
+    },
+    "Câmera Fotografica": {
+        "Descrição": "Serve para registrar momentos."
+    },
+    "Lanterna": {
+        "Descrição": "Concede poder enxergar no escuro."
+    },
+    "Fones Bluetooth": {
+        "Descrição": "Se você escutar musica, recupera +3."
     },
 
+    
 }
 
 # ---------------- STYLE ----------------
@@ -912,4 +931,5 @@ elif active == "Mestre":
 
             if st.button("💾 Salvar Anotações"):
                 st.success("Anotações salvas!")
+
 
