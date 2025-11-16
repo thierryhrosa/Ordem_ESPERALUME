@@ -817,7 +817,6 @@ elif active == "Mestre":
             "Ficha dos Jogadores",
             "Rolagens dos Jogadores",
             "Anotações",
-            "Ficha do Assassino"
         ])
 
         # ==========================================================
@@ -896,26 +895,6 @@ elif active == "Mestre":
             if st.button("🧹 Limpar histórico"):
                 clear_log()
                 st.success("Histórico apagado!")
-# ================================
-# FUNÇÕES DO ASSASSINO
-# ================================
-ASSASSIN_FILE = "assassino.json"
-
-def load_assassin_ficha():
-    """Carrega a ficha do assassino do arquivo JSON."""
-    try:
-        with open(ASSASSIN_FILE, "r", encoding="utf-8") as f:
-            return json.load(f)
-    except:
-        return {}
-
-def save_assassin_ficha(data):
-    """Salva a ficha do assassino no arquivo JSON."""
-    try:
-        with open(ASSASSIN_FILE, "w", encoding="utf-8") as f:
-            json.dump(data, f, indent=4, ensure_ascii=False)
-    except Exception as e:
-        st.error(f"Erro ao salvar ficha do assassino: {e}")
 
         # ==========================================================
         # 3) ANOTAÇÕES DO MESTRE
@@ -933,77 +912,3 @@ def save_assassin_ficha(data):
 
             if st.button("💾 Salvar Anotações"):
                 st.success("Anotações salvas!")
-
-        # ==========================================================
-        # 4) FICHA DO ASSASSINO
-        # ==========================================================
-        with tab_assassino:
-            st.subheader("Ficha do Assassino")
-
-            assassin_f = load_assassin_ficha() or {}
-
-            col1, col2 = st.columns(2)
-
-            with col1:
-                nome = st.text_input("Nome", assassin_f.get("nome", "Assassino"))
-                apelido = st.text_input("Apelido", assassin_f.get("apelido", ""))
-                idade = st.number_input("Idade", 0, 120, int(assassin_f.get("idade", 18)))
-                classe = st.text_input("Classe", assassin_f.get("classe", ""))
-                o_que = st.text_area("O que ele faz", assassin_f.get("o_que_faz", ""), height=80)
-
-            with col2:
-                historia = st.text_area("História", assassin_f.get("historia", ""), height=180)
-                descricao = st.text_area("Descrição", assassin_f.get("descricao", ""), height=150)
-
-            st.markdown("### Atributos")
-            cols = st.columns(6)
-            new_attrs = {}
-
-            for i, a in enumerate(ATTRIBUTES):
-                with cols[i]:
-                    new_attrs[a] = st.number_input(
-                        a,
-                        1,
-                        5,
-                        int(assassin_f.get("atributos", {}).get(a, 1)),
-                        key=f"a_ass_{a}"
-                    )
-
-            pv = st.number_input("PV", 0, 25, int(assassin_f.get("pv", 25)))
-            ps = st.number_input("PS", 0, 25, int(assassin_f.get("ps", 25)))
-
-            st.number_input("PM", 0, 3, 0, disabled=True)
-            st.number_input("PE", 0, 5, 0, disabled=True)
-
-            nex_options = [f"{x}%" for x in [0,5,10,15,20,25,30,35,40,45,50,60,70,80,90,100]]
-            nex_val = int(assassin_f.get("nex", 0))
-            nex_str = st.selectbox("NEX", nex_options, nex_options.index(f"{nex_val}%"))
-            nex_val = int(nex_str.replace("%", ""))
-
-            st.markdown("### Inventário")
-            base = 8
-            itens = assassin_f.get("itens", [""] * base)
-            itens += [""] * (base - len(itens))
-
-            new_items = []
-            for i in range(base):
-                new_items.append(st.text_input(f"Item {i+1}", itens[i], key=f"ass_item_{i}"))
-
-            if st.button("💾 Salvar Ficha do Assassino"):
-                save_assassin_ficha({
-                    "nome": nome,
-                    "apelido": apelido,
-                    "idade": idade,
-                    "classe": classe,
-                    "o_que_faz": o_que,
-                    "historia": historia,
-                    "descricao": descricao,
-                    "atributos": new_attrs,
-                    "pv": pv,
-                    "ps": ps,
-                    "pm": 0,
-                    "pe": 0,
-                    "nex": nex_val,
-                    "itens": new_items
-                })
-                st.success("Ficha do Assassino salva!")
