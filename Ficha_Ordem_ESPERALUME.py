@@ -885,31 +885,51 @@ elif active == "Mestre":
 # ---------------- FICHA DO ASSASSINO ----------------
 with tab_assassino:
     st.subheader("Ficha do Assassino")
-    assassin_f = load_ficha("Assassino")  # carregar ficha do assassino
-    if assassin_f:
-        st.markdown(f"### {assassin_f.get('nome','—')} ({assassin_f.get('apelido','')})")
-        st.markdown(f"**Classe:** {assassin_f.get('classe','—')} | **Idade:** {assassin_f.get('idade','—')}")
-        st.markdown("---")
 
-        st.markdown("**O que faz:**")
-        st.write(assassin_f.get("o_que_faz","—"))
+    assassin_f = load_ficha("Assassino")  # tenta carregar a ficha
 
-        st.markdown("**Atributos:**")
-        for a, v in assassin_f.get("atributos", {}).items():
-            st.write(f"{a}: {v}")
+    # Se não existir, cria ficha padrão
+    if not assassin_f:
+        assassin_f = {
+            "nome": "Assassino Misterioso",
+            "apelido": "",
+            "classe": "—",
+            "idade": "—",
+            "o_que_faz": "Ataca os personagens no momento oportuno.",
+            "atributos": {a: 1 for a in ATTRIBUTES},
+            "pv": 25,
+            "ps": 25,
+            "nex": 0,
+            "lesao_grave": False,
+            "inconsciente": False,
+            "morrendo": False,
+            "itens": [],
+            "historia": "História do assassino ainda desconhecida."
+        }
+        save_ficha("Assassino", assassin_f)  # salva para garantir que existe
 
-        st.markdown("**Pontos:**")
-        st.write(f"PV: {assassin_f.get('pv',0)}, PS: {assassin_f.get('ps',0)}, NEX: {assassin_f.get('nex',0)}")  # PM e PE removidos
+    st.markdown(f"### {assassin_f.get('nome','—')} ({assassin_f.get('apelido','')})")
+    st.markdown(f"**Classe:** {assassin_f.get('classe','—')} | **Idade:** {assassin_f.get('idade','—')}")
+    st.markdown("---")
 
-        st.markdown("**Condições Especiais:**")
-        st.write(f"🤕 Lesão Grave: {assassin_f.get('lesao_grave', '—')}")
-        st.write(f"😵‍💫 Inconsciente: {assassin_f.get('inconsciente', '—')}")
-        st.write(f"💀 Morrendo: {assassin_f.get('morrendo', '—')}")
+    st.markdown("**O que faz:**")
+    st.write(assassin_f.get("o_que_faz","—"))
 
-        st.markdown("**Inventário:**")
-        for item in assassin_f.get("itens", []):
-            st.write(f"- {item or '—'}")
+    st.markdown("**Atributos:**")
+    for a, v in assassin_f.get("atributos", {}).items():
+        st.write(f"{a}: {v}")
 
-        st.markdown("**História:**")
-        st.write(assassin_f.get("historia","—"))
+    st.markdown("**Pontos:**")
+    st.write(f"PV: {assassin_f.get('pv',0)}, PS: {assassin_f.get('ps',0)}, NEX: {assassin_f.get('nex',0)}")  # PM e PE removidos
 
+    st.markdown("**Condições Especiais:**")
+    st.write(f"🤕 Lesão Grave: {assassin_f.get('lesao_grave', '—')}")
+    st.write(f"😵‍💫 Inconsciente: {assassin_f.get('inconsciente', '—')}")
+    st.write(f"💀 Morrendo: {assassin_f.get('morrendo', '—')}")
+
+    st.markdown("**Inventário:**")
+    for item in assassin_f.get("itens", []):
+        st.write(f"- {item or '—'}")
+
+    st.markdown("**História:**")
+    st.write(assassin_f.get("historia","—"))
