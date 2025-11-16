@@ -97,6 +97,10 @@ ITEM_DATABASE = {
     "Mochila": {
         "Descrição": "Adiciona +3 espaços no inventário enquanto estiver no inventário do jogador."
     },
+    "Caderninho Velho": {
+        "Descrição": "Desenho do Colt com seu pai logo atras."
+    },
+
 
 }
 
@@ -546,6 +550,7 @@ elif active == "Mestre":
             st.experimental_set_query_paramsst.query_params()  # força atualização do estado
 
         st.markdown("</div>", unsafe_allow_html=True)
+
 
 
 
