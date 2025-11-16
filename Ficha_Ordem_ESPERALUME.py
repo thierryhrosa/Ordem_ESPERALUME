@@ -506,7 +506,7 @@ elif active == "Guia":
     st.markdown("<div class='header-title'>📘 Guia da Ficha</div>", unsafe_allow_html=True)
     st.write("")
 
-    sub1, sub2, sub3, sub4, sub5, sub6 = st.tabs(["Atributos", "Pontos de Medo (PM)", "Pontos de Esperança (PE)", "NEX", "Condições do Personagem", "Pontos de Sanidade (PS)",])
+    sub1, sub2, sub3, sub4, sub5, sub6, sub7 = st.tabs(["Atributos", "Pontos de Medo (PM)", "Pontos de Esperança (PE)", "NEX", "Condições do Personagem", "Pontos de Sanidade (PS)", "Pontos de Vida (PV)"])
 
     with sub1:
         st.markdown("""
@@ -914,6 +914,123 @@ Quando usada bem, a Sanidade cria:
 - evolução psicológica real.
 
     """)
+        
+    with sub7:
+        st.markdown("""
+## ❤️ Pontos de Vida (PV)
+
+Os **Pontos de Vida** representam a condição física do personagem — sua resistência, vitalidade e capacidade de continuar lutando, correndo e sobrevivendo após ferimentos.
+
+Enquanto PS é mente, **PV é o corpo**.
+
+---
+
+## 🔍 O que PV representa?
+
+- Saúde física
+- Força vital
+- Resistência a ferimentos
+- Capacidade de continuar lutando
+- Energia do corpo em situações extremas
+
+Quando os PV caem, o corpo começa a falhar.
+
+---
+
+## 🎯 Como os PV são usados?
+
+O personagem perde PV ao sofrer:
+
+- Ataques físicos  
+- Armas cortantes, perfurantes ou contundentes  
+- Explosões  
+- Quedas  
+- Acidentes graves  
+- Armas improvisadas  
+- Ataques do assassino  
+
+---
+
+## 📉 Efeitos conforme o PV diminui
+
+### 🟢 **PV Alto (15–25) — Saudável**
+- Movimentos firmes  
+- Reação rápida  
+- Pode correr, lutar e atuar no máximo desempenho  
+- Sem penalidades  
+
+---
+
+### 🟡 **PV Médio (7–14) — Ferido**
+- Dores constantes  
+- Movimentos lentos  
+- Sangramento leve ou cansaço extremo  
+- Desvantagem em testes de esforço físico (Força / Agilidade)  
+- Qualquer tropeço pode piorar  
+
+---
+
+### 🔴 **PV Baixo (1–6) — À Beira de Cair**
+- Hemorragia  
+- Falta de ar  
+- Dores severas  
+- Tremor muscular  
+- Testes físicos ficam muito difíceis  
+- Menor chance de esquiva  
+- O personagem pode desmaiar a qualquer momento  
+
+---
+
+### ☠️ **PV = 0 — Condição Crítica**
+O personagem não morre imediatamente, mas entra em **estado crítico**:
+
+- Não age até receber ajuda  
+- Se não for tratado, caminha para “Morrendo”  
+- Perde 1 PV por cena/sequência tensa, caso a situação esteja perigosa  
+- Dependendo da história, pode precisar de hospital urgente  
+
+---
+
+## 🩹 Como recuperar PV?
+
+✔ **Primeiros socorros** (testes específicos)  
+✔ **Kit Médico Básico**  
+✔ **Remédios**  
+✔ **Descanso** (leve ou profundo)  
+✔ **Tratamento especializado** (hospital, ambulância)  
+✔ **Ações narrativas de cuidado feitas por aliados**
+
+---
+
+## ⚠️ Lesões
+
+Mesmo recuperando PV, um personagem pode continuar com:
+
+- Ossos quebrados  
+- Hemorragias  
+- Cortes profundos  
+- Choque  
+- Desgaste físico extremo  
+
+Lesões graves podem aplicar desvantagens até serem tratadas.
+
+---
+
+## 🎭 Importância narrativa
+
+PV não mede apenas “vida”, mas **o que o personagem aguenta antes de quebrar fisicamente**.
+
+Permite cenas de:
+
+- heroísmo,  
+- sacrifício,  
+- desespero,  
+- sobrevivência,  
+- e tensão real.
+
+Quando bem usado, transforma ferimentos em narrativa viva, não só números.
+
+    """)
 
 # ----------------------- MESTRE TAB -----------------------
 elif active == "Mestre":
@@ -1028,6 +1145,7 @@ elif active == "Mestre":
 
             if st.button("💾 Salvar Anotações"):
                 st.success("Anotações salvas!")
+
 
 
 
