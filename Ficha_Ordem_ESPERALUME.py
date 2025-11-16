@@ -297,10 +297,10 @@ if st.button("💾 Salvar Ficha"):
         "pe": int(pe),
         "nex": nex_val,
         "itens": new_items
-            }
-save_ficha(player, new_f)
-st.success("Ficha salva com sucesso.")
-st.markdown("</div>", unsafe_allow_html=True)
+    }
+
+    save_ficha(player, new_f)  # ✔ correta posição
+    st.success("Ficha salva!")  # opcional
 
 # ---------------- ROLADOR TAB ----------------
 elif active == "Rolador":
@@ -565,6 +565,7 @@ elif active == "Mestre":
             st.experimental_set_query_paramsst.query_params()  # força atualização do estado
 
         st.markdown("</div>", unsafe_allow_html=True)
+
 
 
 
