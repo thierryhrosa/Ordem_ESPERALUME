@@ -89,8 +89,12 @@ ITEM_DATABASE = {
         "Descrição": "Acerto: 1d20 + Agilidade\nDano: 1d4 + efeito\nEfeito: alvo perde o próximo turno."
     },
     "Kit Medico Basico": {
+        "Descrição": "Rola 1d12.\n1–6 = +3 vida\n7–12 = +6 vida"
+    },
+    "Frascos de Remédio": {
         "Descrição": "Rola 1d6.\n1–2 = +1 vida\n3–4 = +2 vida\n5–6 = +3 vida"
-    }
+    },
+
 }
 
 # ---------------- STYLE ----------------
@@ -513,6 +517,7 @@ elif active == "Mestre":
             st.experimental_set_query_paramsst.query_params()  # força atualização do estado
 
         st.markdown("</div>", unsafe_allow_html=True)
+
 
 
 
