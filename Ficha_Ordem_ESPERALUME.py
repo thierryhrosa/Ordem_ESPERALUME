@@ -305,7 +305,7 @@ elif active == "Ficha":
                 "pm": int(pm),
                 "pe": int(pe),
                 "nex": nex_val,
-                "itens": new_items
+                "itens": new_items,
                 "lesao_grave": lesao_grave,
                 "inconsciente": inconsciente,
                 "morrendo": morrendo,
@@ -576,6 +576,7 @@ elif active == "Mestre":
             st.experimental_set_query_paramsst.query_params()  # força atualização do estado
 
         st.markdown("</div>", unsafe_allow_html=True)
+
 
 
 
