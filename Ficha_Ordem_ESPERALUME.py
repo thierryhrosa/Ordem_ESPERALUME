@@ -225,15 +225,40 @@ elif active == "Ficha":
             width_pct = int((p['val']/max_val)*100) if max_val>0 else 0
             st.markdown(f"<div style='margin-bottom:4px'>{key}: {p['val']} <div style='background:#222;border-radius:6px;width:100%;height:18px'><div style='width:{width_pct}%;background:{p['color']};height:100%;border-radius:6px'></div></div></div>", unsafe_allow_html=True)
 
-        # Inventário
-        st.write("")
-        st.markdown("**Inventário (8 slots)**")
-        inv_cols = st.columns(1)
-        items = ficha.get("itens", [""]*8)
-        new_items = []
-        for i in range(8):
-            val = st.text_input(f"Item {i+1}", value=items[i] if i < len(items) else "", key=f"inv_{player}_{i}")
-            new_items.append(val)
+        # --- INVENTÁRIO COM SISTEMA DE MOCHILA ---
+st.write("")
+st.markdown("**Inventário**", unsafe_allow_html=True)
+
+# Número base de slots
+base_slots = 8
+
+# Verifica se a ficha já tem itens
+items = ficha.get("itens", [""] * base_slots)
+
+# Detecta se há Mochila
+has_mochila = "Mochila" in items
+
+# Bônus de +3 slots se tiver Mochila
+bonus_slots = 3 if has_mochila else 0
+
+# Total de slots
+total_slots = base_slots + bonus_slots
+
+st.markdown(f"Slots disponíveis: **{total_slots}** (Mochila: {'Sim' if has_mochila else 'Não'})")
+
+# Expandindo a lista se necessário
+if len(items) < total_slots:
+    items += [""] * (total_slots - len(items))
+
+# Renderizando inputs de inventário
+new_items = []
+for i in range(total_slots):
+    val = st.text_input(
+        f"Item {i+1}",
+        value=items[i],
+        key=f"inv_{player}_{i}"
+    )
+    new_items.append(val)
 
         st.write("")
         if st.button("💾 Salvar Ficha"):
@@ -520,6 +545,7 @@ elif active == "Mestre":
             st.experimental_set_query_paramsst.query_params()  # força atualização do estado
 
         st.markdown("</div>", unsafe_allow_html=True)
+
 
 
 
