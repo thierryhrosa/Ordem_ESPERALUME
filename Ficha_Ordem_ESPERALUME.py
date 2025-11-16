@@ -119,7 +119,7 @@ ITEM_DATABASE = {
         "Descrição": "Concede poder enxergar no escuro."
     },
     "Fones Bluetooth": {
-        "Descrição": "Se você escutar musica, recupera +3."
+        "Descrição": "Se você escutar musica, recupera +3 Pontos de Sanidade."
     },
 
     
@@ -1331,6 +1331,7 @@ elif active == "Mestre":
 
             if st.button("💾 Salvar Anotações"):
                 st.success("Anotações salvas!")
+
 
 
 
