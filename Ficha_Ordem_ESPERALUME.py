@@ -236,7 +236,6 @@ bonus_mochila = 3 if "Mochila" in ficha.get("inventario", []) else 0
 
 # Capacidade final
 capacidade_total = capacidade_base + bonus_mochila
-
         inv_cols = st.columns(1)
         items = ficha.get("itens", [""]*8)
         new_items = []
@@ -529,6 +528,7 @@ elif active == "Mestre":
             st.experimental_set_query_paramsst.query_params()  # força atualização do estado
 
         st.markdown("</div>", unsafe_allow_html=True)
+
 
 
 
