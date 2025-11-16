@@ -79,7 +79,13 @@ ITEM_DATABASE = {
     },
     "Arco": {
         "Alcance": "1 a 50 metros",
-        "Descrição": "Acerto: 1d20 + Agilidade + Força\nDano: 1d12\nDesastre: erra ou acerta aliado\nFracasso: 10–20m\nNormal: 30m\nBom: 40m\nExtremo: acerto perfeito"
+        "Descrição": "Acerto: 1d20 + Agilidade + Força\
+        nDano: 1d12\
+        nDesastre: erra ou acerta aliado\
+        nFracasso: 10–20m\
+        nNormal: 30m\
+        nBom: 40m\
+        nExtremo: acerto perfeito"
     },
     "Sinalizador": {
         "Alcance": "50 metros",
@@ -1028,6 +1034,7 @@ elif active == "Mestre":
 
             if st.button("💾 Salvar Anotações"):
                 st.success("Anotações salvas!")
+
 
 
 
