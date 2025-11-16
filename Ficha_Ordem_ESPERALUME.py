@@ -65,6 +65,33 @@ def clear_log():
 ATTRIBUTES = ["Força","Agilidade","Intelecto","Percepção","Presença","Vigor"]
 DICE_TYPES = ["d4","d6","d8","d10","d12","d20","d100"]
 SKILLS = ["Luta","Pontaria","Investigação","Ocultismo","Social","Furtividade","Medicina"]
+# ---------------- ITENS DO RPG ----------------
+ITEM_DATABASE = {
+    "Canivete": {
+        "Descrição": "Dano: 1d6 + Força."
+    },
+    "Chave Inglesa": {
+        "Descrição": "Dano: 1d4 + Força."
+    },
+    "Taser (Arma de Choque)": {
+        "Descrição": "Acerto: 1d20 + Agilidade.\nDano: 1d4 + Efeito.\nEfeito: alvo perde o próximo turno.",
+        "Alcance": "6 metros"
+    },
+    "Arco": {
+        "Alcance": "1 a 50 metros",
+        "Descrição": "Acerto: 1d20 + Agilidade + Força\nDano: 1d12\nDesastre: erra ou acerta aliado\nFracasso: 10–20m\nNormal: 30m\nBom: 40m\nExtremo: acerto perfeito"
+    },
+    "Sinalizador": {
+        "Alcance": "50 metros",
+        "Descrição": "Acerto: 1d20 + Agilidade\nDano: 1d6 + efeito\nEfeito: 1–3 queimadura leve • 4–6 fogo crescente"
+    },
+    "Taser de Mão": {
+        "Descrição": "Acerto: 1d20 + Agilidade\nDano: 1d4 + efeito\nEfeito: alvo perde o próximo turno."
+    },
+    "Kit Medico Basico": {
+        "Descrição": "Rola 1d6.\n1–2 = +1 vida\n3–4 = +2 vida\n5–6 = +3 vida"
+    }
+}
 
 # ---------------- STYLE ----------------
 st.markdown("""
@@ -92,7 +119,7 @@ if 'active_tab' not in st.session_state:
 
 # Tabs
 tabs = st.columns([1,1,1,1,1])
-tab_names = ["Login","Ficha","Rolador","Mestre","Sobre"]
+tab_names = ["Login","Ficha","Rolador","Mestre","Itens"]
 for i, t in enumerate(tab_names):
     if st.button(t, key=f"tab_{t}"):
         st.session_state['active_tab'] = t
@@ -324,6 +351,45 @@ elif active == "Rolador":
                 who=e['who']; total=e['total']; results=e['results']; level=e.get('level','')
                 color = colors.get(level,'white')
                 st.markdown(f"<div style='padding:5px; color:{color};'>{e['time']} — {who} → {total} (dados: {results}) {f'[{level}]' if level else ''}</div>", unsafe_allow_html=True)
+# ---------------- ITENS TAB ----------------
+elif active == "Itens":
+    cu = st.session_state.get("current_user")
+    if not cu:
+        st.warning("Faça login para ver seus itens.")
+    else:
+        st.markdown("<div class='card'>", unsafe_allow_html=True)
+        st.markdown("<div class='header-title'>🎒 Itens do Inventário</div>", unsafe_allow_html=True)
+        st.write("")
+
+        # Se for mestre → escolhe qual ficha ver itens
+        if cu.get("is_master"):
+            fichas = list_fichas()
+            sel = st.selectbox("Escolher ficha", ["(selecione)"] + fichas)
+            if sel != "(selecione)":
+                ficha = load_ficha(sel)
+                itens = ficha.get("itens", [])
+                st.subheader(f"Inventário de {sel}")
+        else:
+            ficha = load_ficha(cu["name"])
+            itens = ficha.get("itens", [])
+            st.subheader("Seus itens")
+
+        itens_validos = [i for i in itens if i and i.strip()]
+
+        if not itens_validos:
+            st.info("Nenhum item no inventário.")
+        else:
+            for it in itens_validos:
+                st.markdown(f"<hr/><h3>🔹 {it}</h3>", unsafe_allow_html=True)
+
+                if it in ITEM_DATABASE:
+                    data = ITEM_DATABASE[it]
+                    for k, v in data.items():
+                        st.markdown(f"**{k}:** {v}")
+                else:
+                    st.markdown("*Item não registrado na base de dados.*")
+
+        st.markdown("</div>", unsafe_allow_html=True)
 
 # ---------------- HISTÓRICO TAB ----------------
 elif active == "Historico":
@@ -447,5 +513,6 @@ elif active == "Mestre":
             st.experimental_set_query_paramsst.query_params()  # força atualização do estado
 
         st.markdown("</div>", unsafe_allow_html=True)
+
 
 
