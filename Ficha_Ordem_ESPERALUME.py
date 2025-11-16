@@ -157,7 +157,7 @@ elif active == "Ficha":
 
         st.write("")
         st.markdown("**Atributos** (1–5) — cada um pode editar; mínimo 1, máximo 5", unsafe_allow_html=True)
-        cols = st.columns(5)
+        cols = st.columns(6)
         new_attrs = {}
         for i, a in enumerate(ATTRIBUTES):
             with cols[i]:
@@ -446,3 +446,4 @@ elif active == "Mestre":
             st.experimental_set_query_paramsst.query_params()  # força atualização do estado
 
         st.markdown("</div>", unsafe_allow_html=True)
+
