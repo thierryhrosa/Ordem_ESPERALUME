@@ -487,7 +487,7 @@ elif active == "Guia":
     st.markdown("<div class='header-title'>📘 Guia da Ficha</div>", unsafe_allow_html=True)
     st.write("")
 
-    sub1, = st.tabs(["Atributos"])
+    sub1, sub2 = st.tabs(["Atributos", "Pontos de Medo (PM)"])
 
     with sub1:
         st.markdown("""
@@ -567,6 +567,87 @@ Resistência física, resistência mental, imunidade, fôlego e capacidade de ag
 - Suportar um ritual que drena energia vital.  
 - Agüentar frio, calor, fome ou privação de sono.
         """)
+    with sub2:
+        st.markdown("""
+## 😱 **Pontos de Medo (PM)**
+
+### O que são Pontos de Medo?
+Os Pontos de Medo representam o quanto o personagem consegue lidar com terror, pressão psicológica, traumas e fenômenos sobrenaturais.  
+Eles funcionam como uma **barra mental**, do mesmo jeito que os PV são uma barra física.  
+
+Quanto mais PM o personagem acumula, mais o medo domina seu comportamento.
+
+---
+
+## 🔧 **Como funcionam os PM**
+✔ Cada personagem começa com **0 PM**.  
+✔ PM aumenta quando o personagem passa por algo aterrorizante.  
+✔ PM nunca é algo “positivo”: cada ponto recebido empurra o personagem para o limite mental.
+
+---
+
+## 🎲 **Teste de Medo**
+Sempre que o personagem precisa resistir ao medo, ele faz um:
+
+### 👉 **Teste de VIGOR ou PRESENÇA**  
+*(depende da origem do medo)*
+
+- **Falhou?** → ganha PM (quantidade definida pela cena).  
+- **Passou?** → não ganha PM, mas ainda sente medo narrativamente.
+
+---
+
+# 🧪 **Efeitos conforme a quantidade de PM**
+
+A barra de PM funciona em “estágios” que representam o estado mental do personagem.
+
+---
+
+## 🟠 **1. Estágio de Tensão — (1 PM)**  
+O personagem está abalado, mas ainda funcional.
+
+### Efeitos:
+- Mãos tremendo  
+- Respiração pesada  
+- Desvantagem em ações que exigem calma (ex.: abrir fechaduras, atirar com precisão)  
+- Percepção mais ativa, porém **menos precisa**  
+
+---
+
+## 🔴 **2. Estágio de Pânico — (2 PM)**  
+Agora o personagem está **realmente perturbado**.
+
+### Efeitos:
+- Pequenas alucinações  
+- Se assusta com sons simples  
+- Falta de foco  
+- Chance de travar em momentos críticos  
+
+### Mecânica adicional:
+A cada cena tensa → **Teste de VIGOR** para não entrar em pânico.
+
+---
+
+## ☠️ **3. Colapso Mental — (3 PM)**  
+O personagem chega ao limite psicológico.
+
+### O jogador rola **1d6** para determinar o tipo de colapso:
+
+1. **Fuga desesperada**  
+2. **Travado em choque**  
+3. **Gritando histérico**  
+4. **Agressivo sem controle**  
+5. **Chorando, incapaz de agir**  
+6. **Apagão / desmaio mental**
+
+### Recuperação:
+O personagem só retorna ao normal com:
+- descanso  
+- apoio emocional  
+- terapia  
+- momentos seguros e estáveis  
+
+    """)
 
 # ---------------- MESTRE TAB ----------------
 elif active == "Mestre":
@@ -662,3 +743,4 @@ elif active == "Mestre":
             st.experimental_set_query_paramsst.query_params()  # força atualização do estado
 
         st.markdown("</div>", unsafe_allow_html=True)
+
