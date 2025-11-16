@@ -132,7 +132,7 @@ if 'active_tab' not in st.session_state:
 
 # Tabs
 tabs = st.columns([1,1,1,1,1])
-tab_names = ["Login","Ficha","Rolador","Mestre","Itens"]
+tab_names = ["Login","Ficha","Rolador","Mestre","Itens","Guia"]
 for i, t in enumerate(tab_names):
     if st.button(t, key=f"tab_{t}"):
         st.session_state['active_tab'] = t
@@ -481,6 +481,92 @@ elif active == "Historico":
         st.success("Histórico limpo.")
         st.experimental_set_query_params(tab="Historico")  # mantém aba aberta
     st.markdown("</div>", unsafe_allow_html=True)
+    
+# ---------------- GUIA ----------------
+elif active == "Guia":
+    st.markdown("<div class='header-title'>📘 Guia da Ficha</div>", unsafe_allow_html=True)
+    st.write("")
+
+    sub1, = st.tabs(["Atributos"])
+
+    with sub1:
+        st.markdown("""
+### 💪 **1. FORÇA**
+**✔ O que representa:**  
+Poder físico bruto: levantar peso, causar dano físico, romper barreiras, resistir em quedas ou agarradas.
+
+**✔ Exemplos de uso:**  
+- Arrombar uma porta velha.  
+- Segurar um inimigo para impedir que ele fuja.  
+- Levantar um móvel pesado para alguém passar por baixo.  
+- Saltar um vão grande usando pura potência muscular.  
+- Golpear com mais impacto (em sistemas que usam Força para dano).
+
+---
+
+### ⚡ **2. AGILIDADE**
+**✔ O que representa:**  
+Coordenação, reflexo, velocidade, destreza com armas leves e precisão de movimentos.
+
+**✔ Exemplos de uso:**  
+- Desviar de um golpe ou esquiva em combate.  
+- Correr por um corredor fugindo do assassino.  
+- Fazer parkour ou escalar rapidamente uma parede.  
+- Acertar um tiro mais difícil ou manipular ferramentas delicadas.  
+- Furtar algo discretamente do bolso de alguém.
+
+---
+
+### 🧠 **3. INTELECTO**
+**✔ O que representa:**  
+Raciocínio lógico, conhecimento técnico, investigação complexa e capacidade de resolver problemas.
+
+**✔ Exemplos de uso:**  
+- Resolver um enigma antigo ou decifrar um código.  
+- Analisar uma pista e entender o que ela significa.  
+- Criar um plano estratégico para invadir um local.  
+- Identificar uma substância desconhecida.  
+- Realizar cálculos ou montar máquinas improvisadas.
+
+---
+
+### 👁 **4. PERCEPÇÃO**
+**✔ O que representa:**  
+Atenção aos detalhes, sentidos aguçados, intuição sobre o ambiente ou sobre pessoas.
+
+**✔ Exemplos de uso:**  
+- Ouvir passos atrás de você.  
+- Ver algo se movendo na floresta no meio da neblina.  
+- Sentir cheiro de sangue antes de abrir uma porta.  
+- Perceber que alguém está mentindo através de expressões sutis.  
+- Encontrar uma pista escondida no cenário.
+
+---
+
+### 😼 **5. PRESENÇA**
+**✔ O que representa:**  
+Carisma, liderança, intimidação, manipulação social e magnetismo pessoal.
+
+**✔ Exemplos de uso:**  
+- Convencer um policial a deixar vocês passarem.  
+- Intimidar um cultista para que ele revele algo.  
+- Fazer um discurso emocionante para motivar o grupo.  
+- Enganar alguém com lábia rápida.  
+- Seduzir, persuadir, negociar preciosamente.
+
+---
+
+### ❤️‍🔥 **6. VIGOR**
+**✔ O que representa:**  
+Resistência física, resistência mental, imunidade, fôlego e capacidade de aguentar dor.
+
+**✔ Exemplos de uso:**  
+- Resistir a venenos, gases, medo extremo.  
+- Continuar correndo mesmo já exausto.  
+- Não desmaiar após levar um golpe pesado.  
+- Suportar um ritual que drena energia vital.  
+- Agüentar frio, calor, fome ou privação de sono.
+        """)
 
 # ---------------- MESTRE TAB ----------------
 elif active == "Mestre":
@@ -576,27 +662,3 @@ elif active == "Mestre":
             st.experimental_set_query_paramsst.query_params()  # força atualização do estado
 
         st.markdown("</div>", unsafe_allow_html=True)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
