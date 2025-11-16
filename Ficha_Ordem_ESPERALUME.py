@@ -279,6 +279,7 @@ if st.button("💾 Salvar Ficha"):
         "nex": nex_val,
         "itens": new_items
     }
+    
         st.write("")
         if st.button("💾 Salvar Ficha"):
             new_f = {
@@ -564,6 +565,7 @@ elif active == "Mestre":
             st.experimental_set_query_paramsst.query_params()  # força atualização do estado
 
         st.markdown("</div>", unsafe_allow_html=True)
+
 
 
 
