@@ -884,7 +884,7 @@ elif active == "Mestre":
                 
 # ---------------- FICHA DO ASSASSINO ----------------
 with tab_assassino:
-    st.subheader("Ficha do Assassino")
+    st.subheader("Ficha do Assassino (Editável)")
 
     assassin_f = load_ficha("Assassino")  # tenta carregar a ficha
 
@@ -893,9 +893,9 @@ with tab_assassino:
         assassin_f = {
             "nome": "Assassino Misterioso",
             "apelido": "",
-            "classe": "—",
-            "idade": "—",
-            "o_que_faz": "Ataca os personagens no momento oportuno.",
+            "classe": "",
+            "idade": 18,
+            "o_que_faz": "",
             "atributos": {a: 1 for a in ATTRIBUTES},
             "pv": 25,
             "ps": 25,
@@ -904,32 +904,67 @@ with tab_assassino:
             "inconsciente": False,
             "morrendo": False,
             "itens": [],
-            "historia": "História do assassino ainda desconhecida."
+            "historia": "",
+            "descricao": ""
         }
-        save_ficha("Assassino", assassin_f)  # salva para garantir que existe
+        save_ficha("Assassino", assassin_f)
 
-    st.markdown(f"### {assassin_f.get('nome','—')} ({assassin_f.get('apelido','')})")
-    st.markdown(f"**Classe:** {assassin_f.get('classe','—')} | **Idade:** {assassin_f.get('idade','—')}")
-    st.markdown("---")
+    # --- Campos editáveis ---
+    nome = st.text_input("Nome", value=assassin_f.get("nome","Assassino"))
+    apelido = st.text_input("Apelido", value=assassin_f.get("apelido",""))
+    idade = st.number_input("Idade", min_value=0, max_value=120, value=assassin_f.get("idade",18))
+    classe = st.text_input("Classe", value=assassin_f.get("classe",""))
+    o_que = st.text_area("O que faz", value=assassin_f.get("o_que_faz",""), height=80)
+    historia = st.text_area("História", value=assassin_f.get("historia",""), height=150)
+    descricao = st.text_area("Descrição", value=assassin_f.get("descricao",""), height=100)
 
-    st.markdown("**O que faz:**")
-    st.write(assassin_f.get("o_que_faz","—"))
+    st.markdown("**Atributos (1–5)**")
+    cols = st.columns(len(ATTRIBUTES))
+    new_attrs = {}
+    for i, a in enumerate(ATTRIBUTES):
+        with cols[i]:
+            v = st.number_input(a, min_value=1, max_value=5, value=assassin_f.get("atributos", {}).get(a,1), key=f"ass_attr_{a}")
+            new_attrs[a] = int(v)
 
-    st.markdown("**Atributos:**")
-    for a, v in assassin_f.get("atributos", {}).items():
-        st.write(f"{a}: {v}")
+    st.markdown("**Pontos**")
+    pv = st.number_input("PV (0–25)", min_value=0, max_value=25, value=assassin_f.get("pv",25))
+    ps = st.number_input("PS (0–25)", min_value=0, max_value=25, value=assassin_f.get("ps",25))
+    nex_options = [str(x)+"%" for x in [0,5,10,15,20,25,30,35,40,45,50,60,70,80,90,100]]
+    nex_str = st.selectbox("NEX", options=nex_options, index=nex_options.index(f"{assassin_f.get('nex',0)}%" if assassin_f.get('nex',0) else "0%"))
+    nex_val = int(nex_str.replace("%",""))
 
-    st.markdown("**Pontos:**")
-    st.write(f"PV: {assassin_f.get('pv',0)}, PS: {assassin_f.get('ps',0)}, NEX: {assassin_f.get('nex',0)}")  # PM e PE removidos
+    st.markdown("**Condições Especiais**")
+    lesao_grave = st.checkbox("🤕 Lesão Grave", value=assassin_f.get("lesao_grave", False))
+    inconsciente = st.checkbox("😵‍💫 Inconsciente", value=assassin_f.get("inconsciente", False))
+    morrendo = st.checkbox("💀 Morrendo", value=assassin_f.get("morrendo", False))
 
-    st.markdown("**Condições Especiais:**")
-    st.write(f"🤕 Lesão Grave: {assassin_f.get('lesao_grave', '—')}")
-    st.write(f"😵‍💫 Inconsciente: {assassin_f.get('inconsciente', '—')}")
-    st.write(f"💀 Morrendo: {assassin_f.get('morrendo', '—')}")
+    st.markdown("**Inventário**")
+    items = assassin_f.get("itens", [])
+    total_slots = max(8, len(items))
+    if len(items) < total_slots:
+        items += [""] * (total_slots - len(items))
+    new_items = []
+    for i in range(total_slots):
+        val = st.text_input(f"Item {i+1}", value=items[i], key=f"ass_item_{i}")
+        new_items.append(val)
 
-    st.markdown("**Inventário:**")
-    for item in assassin_f.get("itens", []):
-        st.write(f"- {item or '—'}")
-
-    st.markdown("**História:**")
-    st.write(assassin_f.get("historia","—"))
+    if st.button("💾 Salvar Ficha do Assassino"):
+        new_f = {
+            "nome": nome,
+            "apelido": apelido,
+            "idade": int(idade),
+            "classe": classe,
+            "o_que_faz": o_que,
+            "historia": historia,
+            "descricao": descricao,
+            "atributos": new_attrs,
+            "pv": int(pv),
+            "ps": int(ps),
+            "nex": nex_val,
+            "lesao_grave": lesao_grave,
+            "inconsciente": inconsciente,
+            "morrendo": morrendo,
+            "itens": new_items
+        }
+        save_ficha("Assassino", new_f)
+        st.success("Ficha do Assassino salva com sucesso.")
