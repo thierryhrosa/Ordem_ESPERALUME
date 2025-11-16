@@ -881,36 +881,35 @@ elif active == "Mestre":
             st.session_state["notas_mestre"] = notas
             if st.button("💾 Salvar Anotações"):
                 st.success("Anotações salvas.")
+                
+# ---------------- FICHA DO ASSASSINO ----------------
+with tab_assassino:
+    st.subheader("Ficha do Assassino")
+    assassin_f = load_ficha("Assassino")  # carregar ficha do assassino
+    if assassin_f:
+        st.markdown(f"### {assassin_f.get('nome','—')} ({assassin_f.get('apelido','')})")
+        st.markdown(f"**Classe:** {assassin_f.get('classe','—')} | **Idade:** {assassin_f.get('idade','—')}")
+        st.markdown("---")
 
-        # ---------------- FICHA DO ASSASSINO ----------------
-        with tab_assassino:
-            st.subheader("Ficha do Assassino")
-            assassin_f = load_ficha("Assassino")  # carregar ficha do assassino
-            if assassin_f:
-                st.markdown(f"### {assassin_f.get('nome','—')} ({assassin_f.get('apelido','')})")
-                st.markdown(f"**Classe:** {assassin_f.get('classe','—')} | **Idade:** {assassin_f.get('idade','—')}")
-                st.markdown("---")
+        st.markdown("**O que faz:**")
+        st.write(assassin_f.get("o_que_faz","—"))
 
-                st.markdown("**O que faz:**")
-                st.write(assassin_f.get("o_que_faz","—"))
+        st.markdown("**Atributos:**")
+        for a, v in assassin_f.get("atributos", {}).items():
+            st.write(f"{a}: {v}")
 
-                st.markdown("**Atributos:**")
-                for a, v in assassin_f.get("atributos", {}).items():
-                    st.write(f"{a}: {v}")
+        st.markdown("**Pontos:**")
+        st.write(f"PV: {assassin_f.get('pv',0)}, PS: {assassin_f.get('ps',0)}, NEX: {assassin_f.get('nex',0)}")  # PM e PE removidos
 
-                st.markdown("**Pontos:**")
-                st.write(f"PV: {assassin_f.get('pv',0)}, PS: {assassin_f.get('ps',0)}, PM: {assassin_f.get('pm',0)}, PE: {assassin_f.get('pe',0)}, NEX: {assassin_f.get('nex',0)}")
+        st.markdown("**Condições Especiais:**")
+        st.write(f"🤕 Lesão Grave: {assassin_f.get('lesao_grave', '—')}")
+        st.write(f"😵‍💫 Inconsciente: {assassin_f.get('inconsciente', '—')}")
+        st.write(f"💀 Morrendo: {assassin_f.get('morrendo', '—')}")
 
-                st.markdown("**Condições Especiais:**")
-                st.write(f"🤕 Lesão Grave: {assassin_f.get('lesao_grave', '—')}")
-                st.write(f"😵‍💫 Inconsciente: {assassin_f.get('inconsciente', '—')}")
-                st.write(f"💀 Morrendo: {assassin_f.get('morrendo', '—')}")
+        st.markdown("**Inventário:**")
+        for item in assassin_f.get("itens", []):
+            st.write(f"- {item or '—'}")
 
-                st.markdown("**Inventário:**")
-                for item in assassin_f.get("itens", []):
-                    st.write(f"- {item or '—'}")
+        st.markdown("**História:**")
+        st.write(assassin_f.get("historia","—"))
 
-                st.markdown("**História:**")
-                st.write(assassin_f.get("historia","—"))
-
-        st.markdown("</div>", unsafe_allow_html=True)
