@@ -70,7 +70,7 @@ ITEM_DATABASE = {
     "Canivete": {
         "Descrição": "Dano: 1d6 + Força."
     },
-    "Chave Inglesa": {
+    "Chave Inglesa enferrujada": {
         "Descrição": "Dano: 1d4 + Força."
     },
     "Taser (Arma de Choque)": {
@@ -513,6 +513,7 @@ elif active == "Mestre":
             st.experimental_set_query_paramsst.query_params()  # força atualização do estado
 
         st.markdown("</div>", unsafe_allow_html=True)
+
 
 
 
