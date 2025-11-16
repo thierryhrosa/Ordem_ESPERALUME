@@ -487,7 +487,7 @@ elif active == "Guia":
     st.markdown("<div class='header-title'>📘 Guia da Ficha</div>", unsafe_allow_html=True)
     st.write("")
 
-    sub1, sub2, sub3 = st.tabs(["Atributos", "Pontos de Medo (PM)", "Pontos de Esperança (PE)"])
+    sub1, sub2, sub3, sub4 = st.tabs(["Atributos", "Pontos de Medo (PM)", "Pontos de Esperança (PE)", "NEX"])
 
     with sub1:
         st.markdown("""
@@ -732,6 +732,12 @@ Não causa colapso mental como o PM, mas deixa o personagem vulnerável.
 O personagem está **desesperançado** e no limite emocional.
 
     """)
+    with sub4:
+        st.markdown("""
+## **NEX**
+??????????
+    """)
+
 
 # ---------------- MESTRE TAB ----------------
 elif active == "Mestre":
@@ -827,5 +833,6 @@ elif active == "Mestre":
             st.experimental_set_query_paramsst.query_params()  # força atualização do estado
 
         st.markdown("</div>", unsafe_allow_html=True)
+
 
 
