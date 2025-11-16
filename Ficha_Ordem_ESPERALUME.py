@@ -221,31 +221,6 @@ elif active == "Ficha":
             save_ficha(player, new_f)
             st.success("Ficha salva com sucesso.")
         st.markdown("</div>", unsafe_allow_html=True)
-# ---- Botão: Excluir minha ficha ----
-if st.button("🗑️ Excluir minha ficha"):
-    # pede confirmação por escrita para evitar exclusões acidentais
-    st.warning("Atenção: essa ação é permanente. Para confirmar, digite o nome exato do personagem abaixo e clique em 'Confirmar exclusão'.")
-    confirm_name = st.text_input("Digite o nome do personagem para confirmar exclusão:", key=f"confirm_del_input_{player}")
-
-    if st.button("Confirmar exclusão", key=f"confirm_del_btn_{player}"):
-        if not confirm_name:
-            st.error("Digite o nome do personagem para confirmar.")
-        elif confirm_name.strip() != player:
-            st.error("Nome digitado não confere. Exclusão cancelada.")
-        else:
-            # chama a função existente que remove o arquivo e limpa rolls relacionados
-            ok = delete_ficha(player)
-            if ok:
-                st.success("Ficha excluída com sucesso.")
-                # limpa sessão e volta para a tela de login
-                st.session_state["current_user"] = None
-                st.session_state["active_tab"] = "Login"
-                st.info("Você foi desconectado. Clique em 'Ir para Login' se necessário.")
-                if st.button("Ir para Login", key=f"goto_login_after_del_{player}"):
-                    st.session_state["current_user"] = None
-                    st.session_state["active_tab"] = "Login"
-            else:
-                st.error("Erro ao excluir a ficha. Verifique permissões do arquivo.")
 
 # ---------------- ROLADOR TAB ----------------
 elif active == "Rolador":
@@ -440,6 +415,45 @@ elif active == "Mestre":
                         st.markdown("<div class='small-muted'>📜 História</div>", unsafe_allow_html=True)
                         st.markdown(f"<div class='hist-box'>{(f.get('historia','—') or '—').replace(chr(10),'<br>')}</div>", unsafe_allow_html=True)
                         st.markdown("</div>", unsafe_allow_html=True)
+# -------------------------------
+# EXCLUSÃO DE FICHAS (SOMENTE MESTRE)
+# -------------------------------
+st.subheader("🗑️ Excluir Ficha de Jogador (Somente Mestre)")
+
+# Busca todas as fichas disponíveis no diretório
+import os
+ficha_dir = "fichas"
+fichas_existentes = [
+    f.replace(".json", "")
+    for f in os.listdir(ficha_dir)
+    if f.endswith(".json")
+]
+
+if not fichas_existentes:
+    st.info("Nenhuma ficha encontrada.")
+else:
+    escolha = st.selectbox("Selecione um jogador para excluir a ficha:", fichas_existentes)
+
+    if st.button("🗑️ Excluir ficha selecionada"):
+        st.warning(
+            f"Tem certeza que deseja excluir a ficha de **{escolha}**?\n"
+            f"Digite o nome EXATO do jogador para confirmar."
+        )
+
+        confirm = st.text_input(
+            "Confirmação de exclusão (digite o nome exatamente igual):",
+            key="confirm_del_master"
+        )
+
+        if st.button("Confirmar exclusão", key="confirm_del_master_btn"):
+            if confirm.strip() != escolha:
+                st.error("Nome não confere. Exclusão cancelada.")
+            else:
+                ok = delete_ficha(escolha)
+                if ok:
+                    st.success(f"Ficha de **{escolha}** excluída com sucesso!")
+                else:
+                    st.error("Erro ao excluir ficha. Verifique permissões.")
 
         with col2:
             st.subheader("Últimas 15 rolagens dos jogadores")
@@ -471,3 +485,4 @@ elif active == "Mestre":
             st.experimental_set_query_paramsst.query_params()  # força atualização do estado
 
         st.markdown("</div>", unsafe_allow_html=True)
+
