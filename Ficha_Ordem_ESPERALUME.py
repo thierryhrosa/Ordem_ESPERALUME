@@ -94,6 +94,9 @@ ITEM_DATABASE = {
     "Frascos de Remédio": {
         "Descrição": "Rola 1d6.\n1–2 = +1 vida\n3–4 = +2 vida\n5–6 = +3 vida"
     },
+    "Mochila": {
+        "Descrição": "Adiciona +3 espaços no inventário enquanto estiver no inventário do jogador."
+    },
 
 }
 
@@ -225,6 +228,15 @@ elif active == "Ficha":
         # Inventário
         st.write("")
         st.markdown("**Inventário (8 slots)**")
+        # Capacidade base normal
+capacidade_base = 8  
+
+# Bônus da mochila
+bonus_mochila = 3 if "Mochila" in ficha.get("inventario", []) else 0
+
+# Capacidade final
+capacidade_total = capacidade_base + bonus_mochila
+
         inv_cols = st.columns(1)
         items = ficha.get("itens", [""]*8)
         new_items = []
@@ -517,6 +529,7 @@ elif active == "Mestre":
             st.experimental_set_query_paramsst.query_params()  # força atualização do estado
 
         st.markdown("</div>", unsafe_allow_html=True)
+
 
 
 
