@@ -1079,9 +1079,6 @@ O Mestre verifica:
 
 - Condições ativas (Sangramento, Terror, Tremor, Exaustão…)
 - Penalidades de PM
-- Efeitos paranormais
-- Durabilidade de habilidades
-- Registros de NEX ou mutações temporais
 
 #### **2. Ação do Personagem**
 Cada personagem pode fazer:
@@ -1092,7 +1089,6 @@ Cada personagem pode fazer:
 **Ações possíveis:**
 - Atacar corpo a corpo
 - Atirar
-- Usar habilidades
 - Usar itens
 - Proteger um aliado
 - Furtividade, percepção, testes rápidos
@@ -1113,7 +1109,6 @@ Permitidas apenas em momentos específicos:
 - Se jogar atrás de cobertura
 - Proteger aliado
 - Usar PE rapidamente
-- Reagir a efeitos paranormais
 
 ---
 
@@ -1126,14 +1121,13 @@ O alvo pode tentar esquivar ou se proteger.
 
 ---
 
-### **🔫 Dano e Efeitos Paranormais**
+### **🔫 Dano**
 
 O dano da arma/ataque pode causar:
 
 - Redução de PV
 - Ganho de PM por trauma
 - Condições (Terror, Sussurros, Desorientação)
-- Efeitos especiais da criatura
 
 **Acerto Crítico:**
 - Dano dobrado  
@@ -1150,12 +1144,10 @@ O dano da arma/ataque pode causar:
 ### **🛡️ Defesa e Cobertura**
 
 **Coberturas:**
-- Leve: -1 para te acertar  
-- Média: -2  
-- Pesada: ataques quase não acertam  
-- Paranormal: efeitos especiais (variam)
+- Leve (mesas, armários): +1 Defesa  
+- Média (carros, paredes baixas): +2 Defesa  
+- Pesada (paredes sólidas, pilares): +5 Defesa, ataques quase não acertam  
 
-Algumas entidades ignoram cobertura física.
 
 ---
 
@@ -1175,7 +1167,7 @@ O ambiente é parte do combate:
 
 ### **❤️ Estados Críticos**
 
-Se PV chegar a **0**, o personagem entra em:
+Se PV chegar a **0**, o personagem pode entrar em:
 
 **🤕 Lesão Grave**  
 - Penalidades pesadas  
@@ -1196,23 +1188,19 @@ Se PV chegar a **0**, o personagem entra em:
 ### **🎲 Modificadores**
 
 **Vantagem** → rola 2 dados e fica com o maior  
-Concedido por PE, apoio, ambiente ou habilidades.
+Concedido por: PE, apoio ou ambiente.
 
 **Desvantagem** → rola 2 dados e usa o menor  
-Causado por medo, escuridão, condições ruins, entidades fortes.
+Causado por: medo, escuridão, condições ruins.
 
 ---
 
 ### **🔥 Ações Especiais**
 
 - Golpe preciso  
-- Empurrar entidade no véu  
-- Impedir ritual  
-- Distrair criatura  
-- Investida desesperada  
-- Usar símbolo espiritual  
-- Selar portas/janelas  
-- Resistência mental contra entidade  
+- Distrair Assassino  
+- Investida desesperada    
+- Selar portas/janelas    
 
 ---
 
@@ -1223,7 +1211,7 @@ O sistema incentiva ações criativas:
 - Gastar PE para salvar um aliado
 - Cancelar PM
 - Apoiar emocionalmente outro personagem
-- Derrubar objetos para bloquear criaturas
+- Derrubar objetos para bloquear assassino
 - Sacrifícios heroicos
 - Falas que aumentem a moral
 
@@ -1343,6 +1331,7 @@ elif active == "Mestre":
 
             if st.button("💾 Salvar Anotações"):
                 st.success("Anotações salvas!")
+
 
 
 
