@@ -535,7 +535,7 @@ elif active == "Guia":
     st.markdown("<div class='header-title'>📘 Guia da Ficha</div>", unsafe_allow_html=True)
     st.write("")
 
-    sub1, sub2, sub3, sub4, sub5, sub6, sub7 = st.tabs(["Atributos", "Pontos de Medo (PM)", "Pontos de Esperança (PE)", "NEX", "Condições do Personagem", "Pontos de Sanidade (PS)", "Pontos de Vida (PV)"])
+    sub1, sub2, sub3, sub4, sub5, sub6, sub7, sub8 = st.tabs(["Atributos", "Pontos de Medo (PM)", "Pontos de Esperança (PE)", "NEX", "Condições do Personagem", "Pontos de Sanidade (PS)", "Pontos de Vida (PV)", "Combate", ])
 
     with sub1:
         st.markdown("""
@@ -1060,6 +1060,175 @@ Permite cenas de:
 Quando bem usado, transforma ferimentos em narrativa viva, não só números.
 
     """)
+        
+    with sub8:
+        st.markdown("""
+## **⚔️ COMBATE — ORDEM ESPERALUME**
+
+O combate em ESPERALUME é intenso, rápido e mortal.  
+Personagens são humanos enfrentando forças além da realidade — então qualquer erro pode ser o último.
+
+Aqui está o guia adaptado ao sistema, respeitando PV, PM, PE, Condições e o estilo paranormal de jogo.
+
+---
+
+### **🕒 Estrutura de um Turno**
+
+#### **1. Início do Turno**
+O Mestre verifica:
+
+- Condições ativas (Sangramento, Terror, Tremor, Exaustão…)
+- Penalidades de PM
+- Efeitos paranormais
+- Durabilidade de habilidades
+- Registros de NEX ou mutações temporais
+
+#### **2. Ação do Personagem**
+Cada personagem pode fazer:
+
+**✔ 1 AÇÃO  
+✔ 1 MOVIMENTO**
+
+**Ações possíveis:**
+- Atacar corpo a corpo
+- Atirar
+- Usar habilidades
+- Usar itens
+- Proteger um aliado
+- Furtividade, percepção, testes rápidos
+- Gastar PE para rerrolar testes ou cancelar PM
+- Confronto psicológico
+
+**Movimentos possíveis:**
+- Correr / recuar / avançar
+- Buscar cobertura
+- Se esconder
+- Fugir em pânico
+- Proteger alguém
+
+#### **3. Reações**
+Permitidas apenas em momentos específicos:
+
+- Bloquear ataque
+- Se jogar atrás de cobertura
+- Proteger aliado
+- Usar PE rapidamente
+- Reagir a efeitos paranormais
+
+---
+
+### **🎯 Ataques**
+
+**Corpo a Corpo → usa LUTA**  
+**À Distância → usa PONTARIA**
+
+O alvo pode tentar esquivar ou se proteger.
+
+---
+
+### **🔫 Dano e Efeitos Paranormais**
+
+O dano da arma/ataque pode causar:
+
+- Redução de PV
+- Ganho de PM por trauma
+- Condições (Terror, Sussurros, Desorientação)
+- Efeitos especiais da criatura
+
+**Acerto Crítico:**
+- Dano dobrado  
+- Pode causar Lesão Grave 🤕
+
+**Falha Crítica:**
+- Arma emperra
+- Faz barulho perigoso
+- Perde a ação
+- Ganha +1 PM pelo estresse
+
+---
+
+### **🛡️ Defesa e Cobertura**
+
+**Coberturas:**
+- Leve: -1 para te acertar  
+- Média: -2  
+- Pesada: ataques quase não acertam  
+- Paranormal: efeitos especiais (variam)
+
+Algumas entidades ignoram cobertura física.
+
+---
+
+### **🏃‍♂️ Movimento**
+
+O ambiente é parte do combate:
+
+- Correr para abrigo
+- Se jogar no chão
+- Sair da linha de visão
+- Trocar posição com aliado
+- Subir em objetos
+- Passar por portas e brechas
+- Esconder-se nas sombras
+
+---
+
+### **❤️ Estados Críticos**
+
+Se PV chegar a **0**, o personagem entra em:
+
+**🤕 Lesão Grave**  
+- Penalidades pesadas  
+- Movimentos limitados  
+
+**😵‍💫 Inconsciente**  
+- Não age  
+- Cai no chão  
+
+**💀 Morrendo**  
+- Contagem de turnos  
+- Testes para sobreviver  
+- Falhou → morte  
+- Aliado pode estabilizar
+
+---
+
+### **🎲 Modificadores**
+
+**Vantagem** → rola 2 dados e fica com o maior  
+Concedido por PE, apoio, ambiente ou habilidades.
+
+**Desvantagem** → rola 2 dados e usa o menor  
+Causado por medo, escuridão, condições ruins, entidades fortes.
+
+---
+
+### **🔥 Ações Especiais**
+
+- Golpe preciso  
+- Empurrar entidade no véu  
+- Impedir ritual  
+- Distrair criatura  
+- Investida desesperada  
+- Usar símbolo espiritual  
+- Selar portas/janelas  
+- Resistência mental contra entidade  
+
+---
+
+### **🧠 O Combate é Emocional**
+
+O sistema incentiva ações criativas:
+
+- Gastar PE para salvar um aliado
+- Cancelar PM
+- Apoiar emocionalmente outro personagem
+- Derrubar objetos para bloquear criaturas
+- Sacrifícios heroicos
+- Falas que aumentem a moral
+
+---
+    """)
 
 # ----------------------- MESTRE TAB -----------------------
 elif active == "Mestre":
@@ -1174,6 +1343,7 @@ elif active == "Mestre":
 
             if st.button("💾 Salvar Anotações"):
                 st.success("Anotações salvas!")
+
 
 
 
