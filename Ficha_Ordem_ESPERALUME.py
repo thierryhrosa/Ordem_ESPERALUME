@@ -249,6 +249,33 @@ elif active == "Ficha":
             max_val = 25 if key in ["PV","PS"] else 3 if key=="PM" else 5 if key=="PE" else 100
             width_pct = int((p['val']/max_val)*100) if max_val>0 else 0
             st.markdown(f"<div style='margin-bottom:4px'>{key}: {p['val']} <div style='background:#222;border-radius:6px;width:100%;height:18px'><div style='width:{width_pct}%;background:{p['color']};height:100%;border-radius:6px'></div></div></div>", unsafe_allow_html=True)
+            
+             # --- DEFESA E MOVIMENTO ---
+        st.write("")
+        st.markdown("**Combate**", unsafe_allow_html=True)
+
+        col_def, col_mov = st.columns(2)
+
+        with col_def:
+            defesa = st.number_input(
+                "🛡️ Defesa (1–15)",
+                min_value=1,
+                max_value=15,
+                value=ficha.get("defesa", 10),
+                step=1,
+                key=f"defesa_{player}"
+            )
+
+        with col_mov:
+            movimento = st.number_input(
+                "🏃‍♂️ Movimento (0–10 m)",
+                min_value=0,
+                max_value=10,
+                value=ficha.get("movimento", 6),
+                step=1,
+                key=f"movimento_{player}"
+            )
+
         # --- ESTADOS DO PERSONAGEM ---
         st.write("")
         st.markdown("**Estados do Personagem**", unsafe_allow_html=True)
@@ -328,6 +355,8 @@ elif active == "Ficha":
                 "lesao_grave": lesao_grave,
                 "inconsciente": inconsciente,
                 "morrendo": morrendo,
+                "defesa": int(defesa),
+                "movimento": int(movimento),
             }
             save_ficha(player, new_f)
             st.success("Ficha salva com sucesso.")
@@ -1145,6 +1174,7 @@ elif active == "Mestre":
 
             if st.button("💾 Salvar Anotações"):
                 st.success("Anotações salvas!")
+
 
 
 
