@@ -225,6 +225,7 @@ elif active == "Ficha":
             width_pct = int((p['val']/max_val)*100) if max_val>0 else 0
             st.markdown(f"<div style='margin-bottom:4px'>{key}: {p['val']} <div style='background:#222;border-radius:6px;width:100%;height:18px'><div style='width:{width_pct}%;background:{p['color']};height:100%;border-radius:6px'></div></div></div>", unsafe_allow_html=True)
 
+
         # --- INVENTÁRIO COM SISTEMA DE MOCHILA ---
 st.write("")
 st.markdown("**Inventário**", unsafe_allow_html=True)
@@ -259,6 +260,25 @@ for i in range(total_slots):
         key=f"inv_{player}_{i}"
     )
     new_items.append(val)
+    
+st.write("")
+if st.button("💾 Salvar Ficha"):
+    new_f = {
+        "nome": nome,
+        "senha": ficha.get("senha", ""),
+        "apelido": apelido,
+        "idade": int(idade),
+        "classe": classe,
+        "o_que_faz": o_que,
+        "historia": historia,
+        "atributos": new_attrs,
+        "pv": int(pv),
+        "ps": int(ps),
+        "pm": int(pm),
+        "pe": int(pe),
+        "nex": nex_val,
+        "itens": new_items
+    }
         st.write("")
         if st.button("💾 Salvar Ficha"):
             new_f = {
@@ -544,6 +564,7 @@ elif active == "Mestre":
             st.experimental_set_query_paramsst.query_params()  # força atualização do estado
 
         st.markdown("</div>", unsafe_allow_html=True)
+
 
 
 
