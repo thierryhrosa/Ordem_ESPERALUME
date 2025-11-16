@@ -487,7 +487,7 @@ elif active == "Guia":
     st.markdown("<div class='header-title'>📘 Guia da Ficha</div>", unsafe_allow_html=True)
     st.write("")
 
-    sub1, sub2 = st.tabs(["Atributos", "Pontos de Medo (PM)"])
+    sub1, sub2, sub3 = st.tabs(["Atributos", "Pontos de Medo (PM)", "Pontos de Esperança (PE)"])
 
     with sub1:
         st.markdown("""
@@ -648,6 +648,90 @@ O personagem só retorna ao normal com:
 - momentos seguros e estáveis  
 
     """)
+    with sub3: 
+        st.markdown("""
+## ✨ **Pontos de Esperança (PE)**
+
+### O que são Pontos de Esperança?
+Os Pontos de Esperança representam a **força interior**, a **vontade de sobreviver**, o **apoio emocional do grupo** e a **capacidade de superar traumas**.
+
+Enquanto os **PM** mostram a queda mental…  
+Os **PE** representam **coragem, recuperação e superação**.
+
+---
+
+# 🔧 **Como funcionam os PE**
+✔ Cada personagem começa com **5 PE**  
+
+Os PE podem ser gastos de várias maneiras poderosas e narrativas.
+
+---
+
+# 🟢 **Para que servem os Pontos de Esperança?**
+
+---
+
+## ✔ 1. Reduzir ou evitar ganhos de PM
+Uma das funções mais importantes:
+
+### 👉 Gaste **1 PE** → cancela **1 PM** que o personagem ganharia.
+
+Representa o personagem encontrando forças internas:  
+lembranças, coragem, apoio do grupo, determinação.
+
+---
+
+## ✔ 2. Rerrolar um teste importante
+Ao gastar PE, o jogador pode:
+
+- Rerrolar **testes de Medo**
+- Rerrolar **tiros decisivos**
+- Rerrolar **ações heroicas**
+
+O Mestre decide:
+- se pode rerrolar apenas **1 vez por cena**, ou  
+- se pode repetir até conseguir sucessos.
+
+---
+
+## ✔ 3. Ganhar vantagem temporária
+Exemplo narrativo:
+
+> “Você respira fundo, lembra por que está lutando e se concentra totalmente.”
+
+### Efeito mecânico:
+✔ Ganha **vantagem** em **1 teste**.
+
+---
+
+## ✔ 4. Reforçar outro personagem
+Você pode **doar 1 PE** para um aliado próximo, simbolizando apoio emocional.
+
+Exemplo narrativo:
+
+> “Eu tô com você. Levanta. A gente vai sair dessa.”
+
+---
+
+## ✔ 5. Evitar 1 PM ganhado
+Funciona como um “escudo emocional”.
+
+Se a cena permitir, o jogador pode gastar PE para evitar trauma psicológico.
+
+---
+
+# 🚨 **E se os PE chegarem a 0?**
+Não causa colapso mental como o PM, mas deixa o personagem vulnerável.
+
+### Efeitos:
+- Não pode **rerrolar testes**
+- Não pode **evitar PM**
+- Fica emocionalmente fragilizado
+- Qualquer **falha crítica em Testes de Medo** causa **+2 PM adicional**
+
+O personagem está **desesperançado** e no limite emocional.
+
+    """)
 
 # ---------------- MESTRE TAB ----------------
 elif active == "Mestre":
@@ -743,4 +827,5 @@ elif active == "Mestre":
             st.experimental_set_query_paramsst.query_params()  # força atualização do estado
 
         st.markdown("</div>", unsafe_allow_html=True)
+
 
