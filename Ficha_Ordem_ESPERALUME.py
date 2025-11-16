@@ -809,74 +809,58 @@ elif active == "Mestre":
         st.markdown("<div class='header-title'>Painel do Mestre</div>", unsafe_allow_html=True)
         st.write("")
 
-        col1, col2 = st.columns([0.35,0.65])
-        with col1:
+        # Sub-abas do Mestre
+        tab_ficha, tab_rolagens, tab_anotacoes, tab_assassino = st.tabs([
+            "Ficha dos Jogadores", "Rolagens dos Jogadores", "Anotações", "Ficha do Assassino"
+        ])
+
+        # ---------------- FICHA DOS JOGADORES ----------------
+        with tab_ficha:
             st.subheader("Fichas existentes")
             fichas = list_fichas()
             sel = st.selectbox("Selecionar ficha", options=["(escolha)"] + fichas)
-            if st.button("Ver ficha (Mestre)"):
-                if sel and sel != "(escolha)":
-                    f = load_ficha(sel)
-                    if f:
-                        st.markdown("<div class='card'>", unsafe_allow_html=True)
-                        alias = f.get("apelido","")
-                        st.markdown(f"<div style='font-weight:700;color:#f2f2f2;font-size:20px'>{f.get('nome')}{(' ('+alias+')') if alias else ''}</div>", unsafe_allow_html=True)
-                        st.markdown(f"<div class='small muted'>Classe: {f.get('classe','—')} • Idade: {f.get('idade','—')}</div>", unsafe_allow_html=True)
-                        st.markdown("<hr style='border:1px solid rgba(255,255,255,0.03)'/>", unsafe_allow_html=True)
+            if sel != "(escolha)":
+                f = load_ficha(sel)
+                if f:
+                    st.markdown(f"### {f.get('nome','—')} ({f.get('apelido','')})")
+                    st.markdown(f"**Classe:** {f.get('classe','—')} | **Idade:** {f.get('idade','—')}")
+                    st.markdown("---")
 
-                        # O que faz
-                        st.markdown("<div class='small-muted'>🧠 O que ela faz</div>", unsafe_allow_html=True)
-                        st.markdown(f"<div class='hist-box'>{(f.get('o_que_faz','—') or '—').replace(chr(10),'<br>')}</div>", unsafe_allow_html=True)
+                    st.markdown("**O que ela faz:**")
+                    st.write(f.get("o_que_faz","—"))
 
-                        # Atributos
-                        st.markdown("<div style='height:8px'></div>", unsafe_allow_html=True)
-                        st.markdown("<div class='small-muted'>Atributos</div>", unsafe_allow_html=True)
-                        attr_html = " ".join([f"<span class='badge'>{a}: {f.get('atributos',{}).get(a,1)}</span>" for a in ATTRIBUTES])
-                        st.markdown(attr_html, unsafe_allow_html=True)
+                    st.markdown("**Atributos:**")
+                    for a, v in f.get("atributos", {}).items():
+                        st.write(f"{a}: {v}")
 
-                        # Pontos + NEX com barras
-                        st.markdown("<div style='height:8px'></div>", unsafe_allow_html=True)
-                        st.markdown("<div class='small-muted'>📊 Pontos e NEX</div>", unsafe_allow_html=True)
-                        pontos = {
-                            "PV": {"val": f.get("pv",0),"color":"#ff4d4d","max":25},
-                            "PS": {"val": f.get("ps",0),"color":"#3399ff","max":25},
-                            "PM": {"val": f.get("pm",0),"color":"#000000","max":3},
-                            "PE": {"val": f.get("pe",0),"color":"#ffffff","max":5},
-                            "NEX": {"val": f.get("nex",0),"color":"#9933ff","max":100}
-                        }
-                        for key,p in pontos.items():
-                            width_pct = int((p['val']/p['max'])*100) if p['max']>0 else 0
-                            st.markdown(f"<div style='margin-bottom:4px'>{key}: {p['val']} <div style='background:#222;border-radius:6px;width:100%;height:18px'><div style='width:{width_pct}%;background:{p['color']};height:100%;border-radius:6px'></div></div></div>", unsafe_allow_html=True)
+                    st.markdown("**Pontos:**")
+                    st.write(f"PV: {f.get('pv',0)}, PS: {f.get('ps',0)}, PM: {f.get('pm',0)}, PE: {f.get('pe',0)}, NEX: {f.get('nex',0)}")
 
-                        # Inventário
-                        st.markdown("<div style='height:8px'></div>", unsafe_allow_html=True)
-                        st.markdown("<div class='small-muted'>🎒 Inventário</div>", unsafe_allow_html=True)
-                        if f.get("itens"):
-                            for it in f.get("itens", []):
-                                st.markdown(f"<div class='inv-item'><div class='inv-icon'>🎒</div><div style='flex:1'><strong>{it or '—'}</strong></div></div>", unsafe_allow_html=True)
-                        else:
-                            st.markdown("<div class='muted'>Vazio</div>", unsafe_allow_html=True)
+                    st.markdown("**Condições Especiais:**")
+                    st.write(f"🤕 Lesão Grave: {f.get('lesao_grave', '—')}")
+                    st.write(f"😵‍💫 Inconsciente: {f.get('inconsciente', '—')}")
+                    st.write(f"💀 Morrendo: {f.get('morrendo', '—')}")
 
-                        # História
-                        st.markdown("<div style='height:8px'></div>", unsafe_allow_html=True)
-                        st.markdown("<div class='small-muted'>📜 História</div>", unsafe_allow_html=True)
-                        st.markdown(f"<div class='hist-box'>{(f.get('historia','—') or '—').replace(chr(10),'<br>')}</div>", unsafe_allow_html=True)
-                        st.markdown("</div>", unsafe_allow_html=True)
+                    st.markdown("**Inventário:**")
+                    for item in f.get("itens", []):
+                        st.write(f"- {item or '—'}")
 
-        with col2:
+                    st.markdown("**História:**")
+                    st.write(f.get("historia","—"))
+
+        # ---------------- ROLAGENS DOS JOGADORES ----------------
+        with tab_rolagens:
             st.subheader("Últimas 15 rolagens dos jogadores")
             log = load_log()
             if not log:
                 st.info("Nenhuma rolagem registrada.")
             else:
-                # pega apenas últimas 15
                 last_entries = list(reversed(log[-15:]))
                 for e in last_entries:
                     who = e.get("who")
                     total = e.get("total")
                     results = e.get("results")
-                    level = e.get("level", "Normal")  # fallback se não existir
-                    # cores
+                    level = e.get("level", "Normal")
                     color_map = {
                         "Desastre":"#ff6b6b",
                         "Fracasso":"#ffb4b4",
@@ -886,14 +870,47 @@ elif active == "Mestre":
                     }
                     col = color_map.get(level,"#ffffff")
                     st.markdown(f"<div class='roll-line'><strong>{who}</strong> → Total: {total} <span style='color:{col}'>{level}</span> (dados: {results})</div>", unsafe_allow_html=True)
+            if st.button("🧹 Limpar histórico"):
+                clear_log()
+                st.success("Histórico limpo.")
 
-        if st.button("🧹 Limpar histórico"):
-            clear_log()
-            st.session_state["active_tab"] = "Historico"  # ou qualquer aba 
-            st.experimental_set_query_paramsst.query_params()  # força atualização do estado
+        # ---------------- ANOTAÇÕES ----------------
+        with tab_anotacoes:
+            st.subheader("Anotações do Mestre")
+            notas = st.text_area("Digite suas anotações aqui...", value=st.session_state.get("notas_mestre",""), height=300)
+            st.session_state["notas_mestre"] = notas
+            if st.button("💾 Salvar Anotações"):
+                st.success("Anotações salvas.")
+
+        # ---------------- FICHA DO ASSASSINO ----------------
+        with tab_assassino:
+            st.subheader("Ficha do Assassino")
+            assassin_f = load_ficha("Assassino")  # carregar ficha do assassino
+            if assassin_f:
+                st.markdown(f"### {assassin_f.get('nome','—')} ({assassin_f.get('apelido','')})")
+                st.markdown(f"**Classe:** {assassin_f.get('classe','—')} | **Idade:** {assassin_f.get('idade','—')}")
+                st.markdown("---")
+
+                st.markdown("**O que faz:**")
+                st.write(assassin_f.get("o_que_faz","—"))
+
+                st.markdown("**Atributos:**")
+                for a, v in assassin_f.get("atributos", {}).items():
+                    st.write(f"{a}: {v}")
+
+                st.markdown("**Pontos:**")
+                st.write(f"PV: {assassin_f.get('pv',0)}, PS: {assassin_f.get('ps',0)}, PM: {assassin_f.get('pm',0)}, PE: {assassin_f.get('pe',0)}, NEX: {assassin_f.get('nex',0)}")
+
+                st.markdown("**Condições Especiais:**")
+                st.write(f"🤕 Lesão Grave: {assassin_f.get('lesao_grave', '—')}")
+                st.write(f"😵‍💫 Inconsciente: {assassin_f.get('inconsciente', '—')}")
+                st.write(f"💀 Morrendo: {assassin_f.get('morrendo', '—')}")
+
+                st.markdown("**Inventário:**")
+                for item in assassin_f.get("itens", []):
+                    st.write(f"- {item or '—'}")
+
+                st.markdown("**História:**")
+                st.write(assassin_f.get("historia","—"))
 
         st.markdown("</div>", unsafe_allow_html=True)
-
-
-
-
