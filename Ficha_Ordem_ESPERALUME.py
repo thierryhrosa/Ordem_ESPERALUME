@@ -280,23 +280,23 @@ if st.button("💾 Salvar Ficha"):
         "itens": new_items
     }
     
-        st.write("")
-        if st.button("💾 Salvar Ficha"):
-            new_f = {
-                "nome": nome,
-                "senha": ficha.get("senha", ""),
-                "apelido": apelido,
-                "idade": int(idade),
-                "classe": classe,
-                "o_que_faz": o_que,
-                "historia": historia,
-                "atributos": new_attrs,
-                "pv": int(pv),
-                "ps": int(ps),
-                "pm": int(pm),
-                "pe": int(pe),
-                "nex": nex_val,
-                "itens": new_items
+st.write("")
+if st.button("💾 Salvar Ficha"):
+    new_f = {
+        "nome": nome,
+        "senha": ficha.get("senha", ""),
+        "apelido": apelido,
+        "idade": int(idade),
+        "classe": classe,
+        "o_que_faz": o_que,
+        "historia": historia,
+        "atributos": new_attrs,
+        "pv": int(pv),
+        "ps": int(ps),
+        "pm": int(pm),
+        "pe": int(pe),
+        "nex": nex_val,
+        "itens": new_items
             }
             save_ficha(player, new_f)
             st.success("Ficha salva com sucesso.")
@@ -565,6 +565,7 @@ elif active == "Mestre":
             st.experimental_set_query_paramsst.query_params()  # força atualização do estado
 
         st.markdown("</div>", unsafe_allow_html=True)
+
 
 
 
