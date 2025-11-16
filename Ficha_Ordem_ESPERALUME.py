@@ -101,10 +101,8 @@ ITEM_DATABASE = {
         "Descrição": "Desenho do Colt com seu pai logo atras."
     },
     "Livros de Sobrevivência Básica, Intermediário, Avançada": {
-        "Descrição": "Quando utilizado, ganha +Intelecto dependendo do livro usado, Básica: +1, Intermedíario: +2, Avançada: +3."
+        "Descrição": "Ganha +Intelecto na rolagem do livro usado, Básica: +1, Intermedíario: +2, Avançada: +3."
     },
-
-
 
 }
 
@@ -554,6 +552,7 @@ elif active == "Mestre":
             st.experimental_set_query_paramsst.query_params()  # força atualização do estado
 
         st.markdown("</div>", unsafe_allow_html=True)
+
 
 
 
