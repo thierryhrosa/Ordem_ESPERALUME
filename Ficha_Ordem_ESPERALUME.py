@@ -259,7 +259,6 @@ for i in range(total_slots):
         key=f"inv_{player}_{i}"
     )
     new_items.append(val)
-
         st.write("")
         if st.button("💾 Salvar Ficha"):
             new_f = {
@@ -545,6 +544,7 @@ elif active == "Mestre":
             st.experimental_set_query_paramsst.query_params()  # força atualização do estado
 
         st.markdown("</div>", unsafe_allow_html=True)
+
 
 
 
