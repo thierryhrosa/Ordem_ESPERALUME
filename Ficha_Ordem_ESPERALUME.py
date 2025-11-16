@@ -813,7 +813,7 @@ elif active == "Mestre":
         st.write("")
 
         # Criando sub-abas
-        tab_ficha, tab_rolagens, tab_anotacoes, tab_assassino = st.tabs([
+        tab_ficha, tab_rolagens, tab_anotacoes, = st.tabs([
             "Ficha dos Jogadores",
             "Rolagens dos Jogadores",
             "Anotações",
@@ -912,3 +912,4 @@ elif active == "Mestre":
 
             if st.button("💾 Salvar Anotações"):
                 st.success("Anotações salvas!")
+
