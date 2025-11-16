@@ -154,7 +154,8 @@ elif active == "Ficha":
             o_que = st.text_area("O que ela faz", value=ficha.get("o_que_faz",""), height=80)
         with col2:
             historia = st.text_area("História do personagem", value=ficha.get("historia",""), height=220)
-
+            descricao = st.text_area("Descrição do Personagem",value=ficha.get("descricao", ""),height=150,key=f"descricao_{player}")
+            
         st.write("")
         st.markdown("**Atributos** (1–5) — cada um pode editar; mínimo 1, máximo 5", unsafe_allow_html=True)
         cols = st.columns(6)
@@ -446,4 +447,5 @@ elif active == "Mestre":
             st.experimental_set_query_paramsst.query_params()  # força atualização do estado
 
         st.markdown("</div>", unsafe_allow_html=True)
+
 
