@@ -987,3 +987,25 @@ elif active == "Mestre":
                     "itens": new_items
                 })
                 st.success("Ficha do Assassino salva!")
+
+# ================================
+# FUNÇÕES DO ASSASSINO
+# ================================
+
+ASSASSIN_FILE = "assassino.json"
+
+def load_assassin_ficha():
+    """Carrega a ficha do assassino do arquivo JSON."""
+    try:
+        with open(ASSASSIN_FILE, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except:
+        return {}
+
+def save_assassin_ficha(data):
+    """Salva a ficha do assassino no arquivo JSON."""
+    try:
+        with open(ASSASSIN_FILE, "w", encoding="utf-8") as f:
+            json.dump(data, f, indent=4, ensure_ascii=False)
+    except Exception as e:
+        st.error(f"Erro ao salvar ficha do assassino: {e}")
