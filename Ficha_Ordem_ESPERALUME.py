@@ -506,7 +506,7 @@ elif active == "Guia":
     st.markdown("<div class='header-title'>📘 Guia da Ficha</div>", unsafe_allow_html=True)
     st.write("")
 
-    sub1, sub2, sub3, sub4, sub5 = st.tabs(["Atributos", "Pontos de Medo (PM)", "Pontos de Esperança (PE)", "NEX", "Condições do Personagem"])
+    sub1, sub2, sub3, sub4, sub5, sub6 = st.tabs(["Atributos", "Pontos de Medo (PM)", "Pontos de Esperança (PE)", "NEX", "Condições do Personagem", "Pontos de Sanidade (PS)",])
 
     with sub1:
         st.markdown("""
@@ -817,7 +817,104 @@ Estas condições podem ser ativadas pelos botões da sua ficha:
 
 E o mestre pode usar narrativamente para criar cenas dramáticas, perigosas e cinematográficas.
     """)
-        
+    with sub6:
+        st.markdown("""
+## 🧩 Pontos de Sanidade (PS)
+
+Os **Pontos de Sanidade** representam a estabilidade mental do personagem diante do horror, do sobrenatural e de eventos traumáticos.  
+Enquanto os **PM** mostram o medo crescente, os **PS** mostram o quanto da mente do personagem ainda permanece intacta.
+
+---
+
+## 🔍 O que os PS representam?
+
+- Equilíbrio mental  
+- Capacidade de interpretar a realidade corretamente  
+- Resistência a choques psicológicos  
+- Controle emocional  
+- Ancoragem na própria identidade  
+
+Baixos PS = a mente começa a se fragmentar.
+
+---
+
+## 🎲 Quando testar Sanidade?
+
+Sempre que o personagem presencia algo perturbador, como:
+
+- Cadáveres dilacerados  
+- Criaturas sobrenaturais  
+- Revelações traumáticas  
+- Morte de um aliado  
+- Ritual demoníaco  
+- Vozes dentro da própria cabeça  
+
+O jogador faz um:
+
+👉 **Teste de Vigor**  
+(O mestre define qual faz mais sentido para o evento.)
+
+Se falhar → perde PS.  
+Se passar → reduz a perda ou não perde nada (dependendo da cena).
+
+---
+
+## 🚨 Efeitos por níveis de PS
+
+### 🟢 **PS Alto (15–25) — Mente Estável**
+- Raciocínio claro  
+- Menos chance de ganhar PM  
+- Melhor foco  
+- Maior resistência a manipulação mental  
+
+### 🟡 **PS Médio (7–14) — Mente Abalada**
+- Pesadelos  
+- Dificuldades de concentração  
+- Pequenas alucinações periféricas  
+- Vontade fraca  
+- Desvantagem em testes de investigação prolongada  
+
+### 🔴 **PS Baixo (1–6) — À Beira da Ruptura**
+- Alucinações vívidas  
+- Perda temporária de controle  
+- Confusão mental  
+- Episódios de paranoia  
+- Pode atacar amigos achando que são monstros  
+- Testes de Medo ficam mais difíceis  
+
+### ☠️ **PS 0 — Queda Total**
+O personagem **entra em colapso mental e quem controla o personagem é o Mestre (temporario)** de forma irreversível…  
+Pode virar um NPC, fugir da cena, entrar em coma ou simplesmente “quebrar”.
+
+(O mestre decide o impacto narrativo.)  
+
+---
+
+## ❤️‍🩹 Como recuperar PS?
+
+- Terapia (longa duração)  
+- Descanso profundo  
+- Ajuda emocional do grupo  
+- Ambientes seguros  
+- PE usados de forma narrativa  
+- Sair de ambientes traumáticos  
+
+---
+
+## 📘 Observação Importante
+
+PS não é apenas um número —  
+É **a história mental do personagem** sendo afetada pelo mundo ao redor.
+
+Quando usada bem, a Sanidade cria:
+
+- tensão,  
+- imersão,  
+- cenas dramáticas,  
+- evolução psicológica real.
+
+    """)
+
 # ----------------------- MESTRE TAB -----------------------
 elif active == "Mestre":
     cu = st.session_state.get("current_user")
@@ -931,5 +1028,6 @@ elif active == "Mestre":
 
             if st.button("💾 Salvar Anotações"):
                 st.success("Anotações salvas!")
+
 
 
