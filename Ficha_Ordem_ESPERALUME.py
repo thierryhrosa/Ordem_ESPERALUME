@@ -230,6 +230,27 @@ elif active == "Ficha":
             max_val = 25 if key in ["PV","PS"] else 3 if key=="PM" else 5 if key=="PE" else 100
             width_pct = int((p['val']/max_val)*100) if max_val>0 else 0
             st.markdown(f"<div style='margin-bottom:4px'>{key}: {p['val']} <div style='background:#222;border-radius:6px;width:100%;height:18px'><div style='width:{width_pct}%;background:{p['color']};height:100%;border-radius:6px'></div></div></div>", unsafe_allow_html=True)
+        # --- ESTADOS DO PERSONAGEM ---
+        st.write("")
+        st.markdown("**Estados do Personagem**", unsafe_allow_html=True)
+
+        lesao_grave = st.checkbox(
+            "🤕 Lesão Grave",
+            value=ficha.get("lesao_grave", False),
+            key=f"lesao_{player}"
+        )
+
+        inconsciente = st.checkbox(
+            "😵‍💫 Inconsciente",
+            value=ficha.get("inconsciente", False),
+            key=f"inconsciente_{player}"
+        )
+
+        morrendo = st.checkbox(
+            "💀 Morrendo",
+            value=ficha.get("morrendo", False),
+            key=f"morrendo_{player}"
+        )
 
 
         # --- INVENTÁRIO COM SISTEMA DE MOCHILA ---
@@ -285,6 +306,9 @@ elif active == "Ficha":
                 "pe": int(pe),
                 "nex": nex_val,
                 "itens": new_items
+                "lesao_grave": lesao_grave,
+                "inconsciente": inconsciente,
+                "morrendo": morrendo,
             }
             save_ficha(player, new_f)
             st.success("Ficha salva com sucesso.")
@@ -552,6 +576,7 @@ elif active == "Mestre":
             st.experimental_set_query_paramsst.query_params()  # força atualização do estado
 
         st.markdown("</div>", unsafe_allow_html=True)
+
 
 
 
