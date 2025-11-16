@@ -487,7 +487,7 @@ elif active == "Guia":
     st.markdown("<div class='header-title'>📘 Guia da Ficha</div>", unsafe_allow_html=True)
     st.write("")
 
-    sub1, sub2, sub3, sub4 = st.tabs(["Atributos", "Pontos de Medo (PM)", "Pontos de Esperança (PE)", "NEX"])
+    sub1, sub2, sub3, sub4, sub5 = st.tabs(["Atributos", "Pontos de Medo (PM)", "Pontos de Esperança (PE)", "NEX", "Condições do Personagem"])
 
     with sub1:
         st.markdown("""
@@ -737,7 +737,67 @@ O personagem está **desesperançado** e no limite emocional.
 ## **NEX**
 ??????????
     """)
+    with sub5:
+        st.markdown("""
+## **Condições do Personagem**
 
+As condições representam estados físicos ou mentais que afetam diretamente o personagem durante o jogo.  
+Elas podem ser causadas por ataques, medo, ambientes hostis ou efeitos sobrenaturais.
+
+---
+
+### 🤕 **Lesão Grave**
+O personagem sofreu um dano sério, como fraturas, perfurações profundas ou hemorragia (se perder 9+ de dano).
+
+**Efeitos comuns:**
+- Desvantagem em testes de Força e Agilidade (correr, lutar, escalar, depende de onde foi o ferimento).
+- Redução na movimentação.
+- Difícil realizar testes de Força ou Agilidade.
+- Se não tratada, pode evoluir para **estado Morrendo**.
+
+---
+
+### 😵‍💫 **Inconsciente**
+O personagem apaga totalmente — por trauma, falta de ar, choque ou medo extremo.
+
+**Efeitos:**
+- Não pode agir.
+- Não pode falar, atacar ou usar itens.
+- Só pode ser carregado por aliados.
+- Dependendo da causa, pode acordar após:
+  - Teste de VIGOR,
+  - Tratamento,
+  - Passar 1 cena,
+  - Ou intervenção sobrenatural (caso narrativo).
+
+---
+
+### 💀 **Morrendo**
+O personagem está à beira da morte, perdendo sangue, sufocando, envenenado ou com ferimentos fatais.
+
+**Regra sugerida:**
+O jogador rola **1d20 + Vigor por turno**:
+
+- **1–10** → piora (pode morrer em 3 falhas).
+- **11–19** → permanece estável.
+- **20** → consegue fazer uma ação impossível nesse estado por um turno.
+
+**Efeitos:**
+- Não age.
+- Requer tratamento imediato (Kit Médico, primeiros socorros, PE narrativo, etc.).
+- Se o grupo ignorar, o personagem pode morrer em poucos turnos.
+
+---
+
+### 📘 Observação
+Estas condições podem ser ativadas pelos botões da sua ficha:
+
+- 🤕 **Lesão Grave**
+- 😵‍💫 **Inconsciente**
+- 💀 **Morrendo**
+
+E o mestre pode usar narrativamente para criar cenas dramáticas, perigosas e cinematográficas.
+    """)
 
 # ---------------- MESTRE TAB ----------------
 elif active == "Mestre":
@@ -833,6 +893,7 @@ elif active == "Mestre":
             st.experimental_set_query_paramsst.query_params()  # força atualização do estado
 
         st.markdown("</div>", unsafe_allow_html=True)
+
 
 
 
