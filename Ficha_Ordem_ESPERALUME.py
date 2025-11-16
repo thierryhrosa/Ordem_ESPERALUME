@@ -415,6 +415,38 @@ elif active == "Mestre":
                         st.markdown("<div class='small-muted'>📜 História</div>", unsafe_allow_html=True)
                         st.markdown(f"<div class='hist-box'>{(f.get('historia','—') or '—').replace(chr(10),'<br>')}</div>", unsafe_allow_html=True)
                         st.markdown("</div>", unsafe_allow_html=True)
+
+        with col2:
+            st.subheader("Últimas 15 rolagens dos jogadores")
+            log = load_log()
+            if not log:
+                st.info("Nenhuma rolagem registrada.")
+            else:
+                # pega apenas últimas 15
+                last_entries = list(reversed(log[-15:]))
+                for e in last_entries:
+                    who = e.get("who")
+                    total = e.get("total")
+                    results = e.get("results")
+                    level = e.get("level", "Normal")  # fallback se não existir
+                    # cores
+                    color_map = {
+                        "Desastre":"#ff6b6b",
+                        "Fracasso":"#ffb4b4",
+                        "Normal":"#9a9a9a",
+                        "Bom":"#ffd88a",
+                        "Extremo":"#ffd24d"
+                    }
+                    col = color_map.get(level,"#ffffff")
+                    st.markdown(f"<div class='roll-line'><strong>{who}</strong> → Total: {total} <span style='color:{col}'>{level}</span> (dados: {results})</div>", unsafe_allow_html=True)
+
+        if st.button("🧹 Limpar histórico"):
+            clear_log()
+            st.session_state["active_tab"] = "Historico"  # ou qualquer aba 
+            st.experimental_set_query_paramsst.query_params()  # força atualização do estado
+
+        st.markdown("</div>", unsafe_allow_html=True)
+        
 # -------------------------------
 # EXCLUSÃO DE FICHAS (SOMENTE MESTRE)
 # -------------------------------
@@ -454,35 +486,3 @@ else:
                     st.success(f"Ficha de **{escolha}** excluída com sucesso!")
                 else:
                     st.error("Erro ao excluir ficha. Verifique permissões.")
-
-        with col2:
-            st.subheader("Últimas 15 rolagens dos jogadores")
-            log = load_log()
-            if not log:
-                st.info("Nenhuma rolagem registrada.")
-            else:
-                # pega apenas últimas 15
-                last_entries = list(reversed(log[-15:]))
-                for e in last_entries:
-                    who = e.get("who")
-                    total = e.get("total")
-                    results = e.get("results")
-                    level = e.get("level", "Normal")  # fallback se não existir
-                    # cores
-                    color_map = {
-                        "Desastre":"#ff6b6b",
-                        "Fracasso":"#ffb4b4",
-                        "Normal":"#9a9a9a",
-                        "Bom":"#ffd88a",
-                        "Extremo":"#ffd24d"
-                    }
-                    col = color_map.get(level,"#ffffff")
-                    st.markdown(f"<div class='roll-line'><strong>{who}</strong> → Total: {total} <span style='color:{col}'>{level}</span> (dados: {results})</div>", unsafe_allow_html=True)
-
-        if st.button("🧹 Limpar histórico"):
-            clear_log()
-            st.session_state["active_tab"] = "Historico"  # ou qualquer aba 
-            st.experimental_set_query_paramsst.query_params()  # força atualização do estado
-
-        st.markdown("</div>", unsafe_allow_html=True)
-
