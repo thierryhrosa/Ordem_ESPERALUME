@@ -807,6 +807,7 @@ elif active == "Mestre":
     else:
         st.markdown("<div class='card'>", unsafe_allow_html=True)
         st.markdown("<div class='header-title'>Painel do Mestre</div>", unsafe_allow_html=True)
+        elif active == "Mestre":
         st.write("")
 
         # Sub-abas do Mestre
@@ -971,3 +972,4 @@ elif active == "Ficha do Assassino":
             }
             save_assassin_ficha(new_f)
             st.success("Ficha do Assassino salva com sucesso.")
+
