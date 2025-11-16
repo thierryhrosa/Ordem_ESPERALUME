@@ -62,7 +62,7 @@ def clear_log():
     save_log([])
 
 # ---------------- GAME RULES ----------------
-ATTRIBUTES = ["Força","Agilidade","Intelecto","Presença","Vigor"]
+ATTRIBUTES = ["Força","Agilidade","Intelecto","Percepção","Presença","Vigor"]
 DICE_TYPES = ["d4","d6","d8","d10","d12","d20","d100"]
 SKILLS = ["Luta","Pontaria","Investigação","Ocultismo","Social","Furtividade","Medicina"]
 
@@ -446,43 +446,3 @@ elif active == "Mestre":
             st.experimental_set_query_paramsst.query_params()  # força atualização do estado
 
         st.markdown("</div>", unsafe_allow_html=True)
-        
-# -------------------------------
-# EXCLUSÃO DE FICHAS (SOMENTE MESTRE)
-# -------------------------------
-st.subheader("🗑️ Excluir Ficha de Jogador (Somente Mestre)")
-
-# Busca todas as fichas disponíveis no diretório
-import os
-ficha_dir = "fichas"
-fichas_existentes = [
-    f.replace(".json", "")
-    for f in os.listdir(ficha_dir)
-    if f.endswith(".json")
-]
-
-if not fichas_existentes:
-    st.info("Nenhuma ficha encontrada.")
-else:
-    escolha = st.selectbox("Selecione um jogador para excluir a ficha:", fichas_existentes)
-
-    if st.button("🗑️ Excluir ficha selecionada"):
-        st.warning(
-            f"Tem certeza que deseja excluir a ficha de **{escolha}**?\n"
-            f"Digite o nome EXATO do jogador para confirmar."
-        )
-
-        confirm = st.text_input(
-            "Confirmação de exclusão (digite o nome exatamente igual):",
-            key="confirm_del_master"
-        )
-
-        if st.button("Confirmar exclusão", key="confirm_del_master_btn"):
-            if confirm.strip() != escolha:
-                st.error("Nome não confere. Exclusão cancelada.")
-            else:
-                ok = delete_ficha(escolha)
-                if ok:
-                    st.success(f"Ficha de **{escolha}** excluída com sucesso!")
-                else:
-                    st.error("Erro ao excluir ficha. Verifique permissões.")
