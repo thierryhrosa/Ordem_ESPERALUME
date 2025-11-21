@@ -461,113 +461,59 @@ elif active == "Rolador":
             for e in last_entries:
                 who=e['who']; total=e['total']; results=e['results']; level=e.get('level','')
                 color = colors.get(level,'white')
-                st.markdown(f"<div style='padding:5px; color:{color};'>{e['time']} — {who} → {total} (dados: {results}) {f'[{level}]' if level else ''}</div>", unsafe_allow_html=True)
-                
-                # ---------------- FICHA DO ASSASSINO TAB ----------------
-elif active == "???":
-    cu = st.session_state.get("current_user")
+                st.markdown(f"<div style='padding:5px; color:{color};'>{e['time']} — {who} → {total} (dados: {results}) {f'[{level}]' if level else ''}</div>", unsafe_allow_html=
+               
+# ───────────────────────────────────────────
+# ABA SECRETA DO ASSASSINO (aparece só com senha)
+# ───────────────────────────────────────────
 
-    # Apenas o mestre pode entrar
-    if not cu or not cu.get("is_master"):
-        st.warning("Apenas o Mestre pode acessar esta aba.")
-    else:
-        st.markdown("<div class='card'>", unsafe_allow_html=True)
-        st.markdown("<div class='header-title'>Ficha do Assassino</div>", unsafe_allow_html=True)
-        st.write("")
+with st.sidebar.expander("Acesso do Mestre"):
+    senha_mestre = st.text_input("Senha do Mestre", type="password")
 
-        # Carrega ficha do assassino
-        assassino = load_ficha("ASSASSINO") or {}
+if senha_mestre == "ordo2025":
+    aba_assassino = st.tabs(["???"])[0]
 
-        # ===================== DADOS GERAIS =====================
-        col1, col2 = st.columns([1,1])
-        with col1:
-            nome = st.text_input("Nome do Assassino", value=assassino.get("nome",""))
-            apelido = st.text_input("Apelido", value=assassino.get("apelido",""))
-            idade = st.number_input("Idade", min_value=0, max_value=200, value=assassino.get("idade",0))
-            
-            classe = st.text_input("Classe do Assassino", value=assassino.get("classe",""))
-            explicacao_classe = st.text_area("Explicação da Classe", value=assassino.get("explicacao_classe",""), height=120)
+    with aba_assassino:
+        st.title("Ficha do Assassino")
 
-        with col2:
-            historia = st.text_area("História do Assassino", value=assassino.get("historia",""), height=250)
-            aparencia = st.text_area("Aparência do Assassino", value=assassino.get("aparencia",""), height=180)
+        st.subheader("Identidade")
+        nome_assassino = st.text_input("Nome do Assassino")
+        apelido_assassino = st.text_input("Apelido")
+        idade_assassino = st.number_input("Idade", min_value=0, max_value=200, step=1)
 
-        st.write("")
+        st.subheader("História")
+        historia_assassino = st.text_area("História Completa")
 
-        # ===================== ATRIBUTOS =====================
-        st.markdown("### **Atributos do Assassino** (1–6)")
-        ATTR_ASSASSINO = ["Força", "Agilidade", "Intelecto", "Percepção", "Presença", "Vigor"]
+        st.subheader("Outro Lado")
+        classe_outro_lado = st.text_input("Classe do Outro Lado")
+        explicacao_classe = st.text_area("Explicação da Classe")
 
-        cols = st.columns(6)
-        new_attrs = {}
+        st.subheader("Aparência")
+        aparencia_assassino = st.text_area("Descrição da Aparência do Assassino")
 
-        for i, a in enumerate(ATTR_ASSASSINO):
-            with cols[i]:
-                v = st.number_input(a, min_value=1, max_value=6, value=assassino.get("atributos", {}).get(a, 1), key=f"ass_attr_{a}")
-                new_attrs[a] = int(v)
+        st.subheader("Atributos")
+        colA1, colA2, colA3, colA4 = st.columns(4)
+        forca_a = colA1.number_input("Força", 1, 5, 1)
+        agilidade_a = colA2.number_input("Agilidade", 1, 5, 1)
+        intelecto_a = colA3.number_input("Intelecto", 1, 5, 1)
+        presenca_a = colA4.number_input("Presença", 1, 5, 1)
 
-        st.write("")
+        st.subheader("Status")
+        pv_assassino = st.number_input("PV", 1, 999, 10)
+        ps_assassino = st.number_input("PS", 1, 999, 10)
+        defesa_assassino = st.number_input("Defesa", 0, 50, 10)
+        movimento_assassino = st.number_input("Movimento", 0, 20, 6)
 
-        # ===================== PONTOS =====================
-        st.markdown("### **Pontos do Assassino**")
+        st.subheader("Estados do Personagem")
+        lesao_grave_a = st.checkbox("🤕 Lesão Grave")
+        inconsciente_a = st.checkbox("😵‍💫 Inconsciente")
+        morrendo_a = st.checkbox("💀 Morrendo")
 
-        pv = st.number_input("PV (0–100)", min_value=0, max_value=100, value=assassino.get("pv",20))
-        ps = st.number_input("PS (0–100)", min_value=0, max_value=100, value=assassino.get("ps",20))
-        defesa = st.number_input("Defesa", min_value=0, max_value=50, value=assassino.get("defesa",0))
-        movimento = st.number_input("Movimento", min_value=0, max_value=20, value=assassino.get("movimento",6))
+        st.subheader("Inventário")
+        inventario_assassino = st.text_area("Itens, armas, equipamentos...")
 
-        # ===================== ESTADOS =====================
-        st.markdown("### **Estados do Assassino**")
-
-        lesao_grave = st.checkbox("🤕 Lesão Grave", value=assassino.get("lesao_grave", False))
-        inconsciente = st.checkbox("😵‍💫 Inconsciente", value=assassino.get("inconsciente", False))
-        morrendo = st.checkbox("💀 Morrendo", value=assassino.get("morrendo", False))
-
-        st.write("")
-
-        # ===================== INVENTÁRIO =====================
-        st.markdown("### **Inventário do Assassino**")
-
-        base_slots = 10
-        items = assassino.get("itens", [""] * base_slots)
-
-        new_items = []
-        for i in range(base_slots):
-            val = st.text_input(
-                f"Item {i+1}",
-                value=items[i],
-                key=f"ass_inv_{i}"
-            )
-            new_items.append(val)
-
-        st.write("")
-
-        # ===================== BOTÃO DE SALVAR =====================
-        if st.button("💾 Salvar Ficha do Assassino"):
-            new_f = {
-                "nome": nome,
-                "apelido": apelido,
-                "idade": idade,
-                "historia": historia,
-                "classe": classe,
-                "explicacao_classe": explicacao_classe,
-                "aparencia": aparencia,
-
-                "atributos": new_attrs,
-                "pv": int(pv),
-                "ps": int(ps),
-                "defesa": int(defesa),
-                "movimento": int(movimento),
-
-                "lesao_grave": lesao_grave,
-                "inconsciente": inconsciente,
-                "morrendo": morrendo,
-
-                "itens": new_items,
-            }
-
-            save_ficha("ASSASSINO", new_f)
-            st.success("Ficha do Assassino salva com sucesso.")
+else:
+    st.warning("Área restrita ao Mestre. Insira a senha correta para acessar.")
             
 # ---------------- ITENS TAB ----------------
 elif active == "Itens":
@@ -1438,6 +1384,7 @@ elif active == "Mestre":
 
             if st.button("💾 Salvar Anotações"):
                 st.success("Anotações salvas!")
+
 
 
 
