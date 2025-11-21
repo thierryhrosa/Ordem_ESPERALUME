@@ -488,10 +488,10 @@ elif active == "???":
     # Se já passou da senha, agora aparece o resto
     sub_assassino = st.tabs(["Ficha", "Habilidades"])
 
-    # -----------------------------------------
-    # ------------ SUB-ABA FICHA --------------
-    # -----------------------------------------
-    with sub_assassino[0]:
+# -----------------------------------------
+# ------------ SUB-ABA FICHA --------------
+# -----------------------------------------
+with sub_assassino[0]:
 
     nome_a = st.text_input("Nome do Assassino")
     apelido_a = st.text_input("Apelido")
@@ -1452,6 +1452,7 @@ elif active == "Mestre":
 
             if st.button("💾 Salvar Anotações"):
                 st.success("Anotações salvas!")
+
 
 
 
