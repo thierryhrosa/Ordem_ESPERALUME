@@ -470,13 +470,28 @@ elif active == "???":
     st.markdown("<div class='header-title'>🩸 Ficha do Assassino</div>", unsafe_allow_html=True)
     st.write("")
 
-    # Entrada da senha para o mestre
-    senha_assassino = st.text_input("Senha de Acesso (apenas Mestre):", type="password")
+    # --- SISTEMA DE SENHA ---
+    # Armazenar no session_state se a senha já foi aceita
+    if "acesso_assassino" not in st.session_state:
+        st.session_state["acesso_assassino"] = False
 
-    if senha_assassino == "ordo2025":
-        st.success("Acesso liberado. Bem-vindo, Mestre.")
+    if not st.session_state["acesso_assassino"]:
+        senha_assassino = st.text_input("Senha de Acesso (apenas Mestre):", type="password")
+        if senha_assassino == "ordo2025":
+            st.session_state["acesso_assassino"] = True
+            st.success("Acesso liberado. Bem-vindo, Mestre.")
+        else:
+            st.warning("Área restrita ao Mestre. Insira a senha correta para acessar.")
+            st.stop()  # 🔥 Para aqui! Nada abaixo aparece até a senha ser correta.
 
-        # CAMPOS DA FICHA
+    # Se já passou da senha, agora aparece o resto
+    sub_assassino = st.tabs(["Ficha", "Habilidades"])
+
+    # -----------------------------------------
+    # ------------ SUB-ABA FICHA --------------
+    # -----------------------------------------
+    with sub_assassino[0]:
+
         nome_a = st.text_input("Nome do Assassino")
         apelido_a = st.text_input("Apelido")
         idade_a = st.number_input("Idade", min_value=0, max_value=200, value=25)
@@ -508,9 +523,29 @@ elif active == "???":
         st.subheader("Inventário")
         inventario_assassino = st.text_area("Itens, armas, equipamentos...")
 
-    else:
-        st.warning("Área restrita ao Mestre. Insira a senha correta para acessar.")
-            
+    # -----------------------------------------
+    # ----------- SUB-ABA HABILIDADES ---------
+    # -----------------------------------------
+    with sub_assassino[1]:
+
+        st.markdown("## 🧬 Habilidades do Assassino")
+
+        st.markdown("### **Habilidade 1**")
+        habilidade1_nome = st.text_input("Nome da Habilidade 1")
+        habilidade1_desc = st.text_area("Descrição da Habilidade 1", height=120)
+
+        st.markdown("---")
+
+        st.markdown("### **Habilidade 2**")
+        habilidade2_nome = st.text_input("Nome da Habilidade 2")
+        habilidade2_desc = st.text_area("Descrição da Habilidade 2", height=120)
+
+        st.markdown("---")
+
+        st.markdown("### **Habilidade 3**")
+        habilidade3_nome = st.text_input("Nome da Habilidade 3")
+        habilidade3_desc = st.text_area("Descrição da Habilidade 3", height=120)
+        
 # ---------------- ITENS TAB ----------------
 if active == "Itens":
     cu = st.session_state.get("current_user")
@@ -1380,6 +1415,7 @@ elif active == "Mestre":
 
             if st.button("💾 Salvar Anotações"):
                 st.success("Anotações salvas!")
+
 
 
 
