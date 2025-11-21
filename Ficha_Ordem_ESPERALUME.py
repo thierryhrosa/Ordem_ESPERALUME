@@ -461,7 +461,7 @@ elif active == "Rolador":
             for e in last_entries:
                 who=e['who']; total=e['total']; results=e['results']; level=e.get('level','')
                 color = colors.get(level,'white')
-                st.markdown(f"<div style='padding:5px; color:{color};'>{e['time']} — {who} → {total} (dados: {results}) {f'[{level}]' if level else ''}</div>", unsafe_allow_html=
+                st.markdown(f"<div style='padding:5px; color:{color};'>{e['time']} — {who} → {total} (dados: {results}) {f'[{level}]' if level else ''}</div>", unsafe_allow_html=)
                
 # ───────────────────────────────────────────
 # ABA SECRETA DO ASSASSINO (aparece só com senha)
@@ -1384,6 +1384,7 @@ elif active == "Mestre":
 
             if st.button("💾 Salvar Anotações"):
                 st.success("Anotações salvas!")
+
 
 
 
