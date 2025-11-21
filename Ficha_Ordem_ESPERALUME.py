@@ -488,6 +488,9 @@ elif active == "???":
     # -----------------------------------------
     # Criar as sub-abas (AGORA EXISTE!)
     # -----------------------------------------
+sub-aba = st.tabs(["Ficha", "Habilidades"])
+
+with sub-aba:
     sub1, sub2 = st.tabs(["Ficha", "Habilidades"])
 # -----------------------------------------
 # ------------ SUB-ABA FICHA --------------
@@ -1453,6 +1456,7 @@ elif active == "Mestre":
 
             if st.button("💾 Salvar Anotações"):
                 st.success("Anotações salvas!")
+
 
 
 
