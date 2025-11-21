@@ -490,6 +490,35 @@ elif active == "???":
     # -----------------------------------------
     # ------------ SUB-ABA FICHA --------------
     # -----------------------------------------
+    True)
+                
+# ---------------- ASSASSINO TAB ----------------
+elif active == "???":
+
+    st.markdown("<div class='card'>", unsafe_allow_html=True)
+    st.markdown("<div class='header-title'>🩸 Ficha do Assassino</div>", unsafe_allow_html=True)
+    st.write("")
+
+    # --- SISTEMA DE SENHA ---
+    # Armazenar no session_state se a senha já foi aceita
+    if "acesso_assassino" not in st.session_state:
+        st.session_state["acesso_assassino"] = False
+
+    if not st.session_state["acesso_assassino"]:
+        senha_assassino = st.text_input("Senha de Acesso (apenas Mestre):", type="password")
+        if senha_assassino == "ordo2025":
+            st.session_state["acesso_assassino"] = True
+            st.success("Acesso liberado. Bem-vindo, Mestre.")
+        else:
+            st.warning("Área restrita ao Mestre. Insira a senha correta para acessar.")
+            st.stop()  # 🔥 Para aqui! Nada abaixo aparece até a senha ser correta.
+
+    # Se já passou da senha, agora aparece o resto
+    sub_assassino = st.tabs(["Ficha", "Habilidades"])
+
+    # -----------------------------------------
+    # ------------ SUB-ABA FICHA --------------
+    # -----------------------------------------
     with sub_assassino[0]:
 
     nome_a = st.text_input("Nome do Assassino")
@@ -1451,6 +1480,7 @@ elif active == "Mestre":
 
             if st.button("💾 Salvar Anotações"):
                 st.success("Anotações salvas!")
+
 
 
 
