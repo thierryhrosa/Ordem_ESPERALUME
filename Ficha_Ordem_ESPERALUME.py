@@ -492,36 +492,72 @@ elif active == "???":
     # -----------------------------------------
     with sub_assassino[0]:
 
-        nome_a = st.text_input("Nome do Assassino")
-        apelido_a = st.text_input("Apelido")
-        idade_a = st.number_input("Idade", min_value=0, max_value=200, value=25)
-        historia_a = st.text_area("História", height=150)
+    nome_a = st.text_input("Nome do Assassino")
+    apelido_a = st.text_input("Apelido")
+    idade_a = st.number_input("Idade", min_value=0, max_value=200, value=25)
+    historia_a = st.text_area("História", height=150)
 
-        classe_a = st.text_input("Classe do Outro Lado")
-        explicacao_classe_a = st.text_area("Explicação da Classe", height=130)
+    classe_a = st.text_input("Classe do Outro Lado")
+    explicacao_classe_a = st.text_area("Explicação da Classe", height=130)
 
-        aparencia_a = st.text_area("Aparência do Assassino", height=120)
+    aparencia_a = st.text_area("Aparência do Assassino", height=120)
 
-        st.subheader("Atributos")
-        luta_a = st.number_input("Luta", min_value=0, max_value=10, value=2)
-        pontaria_a = st.number_input("Pontaria", min_value=0, max_value=10, value=2)
-        vigor_a = st.number_input("Vigor", min_value=0, max_value=10, value=2)
-        agilidade_a = st.number_input("Agilidade", min_value=0, max_value=10, value=2)
-        presença_a = st.number_input("Presença", min_value=0, max_value=10, value=2)
-        intelecto_a = st.number_input("Intelecto", min_value=0, max_value=10, value=2)
+    st.subheader("Atributos")
+    luta_a = st.number_input("Luta", min_value=0, max_value=10, value=2)
+    pontaria_a = st.number_input("Pontaria", min_value=0, max_value=10, value=2)
+    vigor_a = st.number_input("Vigor", min_value=0, max_value=10, value=2)
+    agilidade_a = st.number_input("Agilidade", min_value=0, max_value=10, value=2)
+    presença_a = st.number_input("Presença", min_value=0, max_value=10, value=2)
+    intelecto_a = st.number_input("Intelecto", min_value=0, max_value=10, value=2)
 
-        pv_a = st.number_input("PV", min_value=1, max_value=999, value=20)
-        ps_a = st.number_input("PS", min_value=1, max_value=999, value=10)
-        defesa_a = st.number_input("Defesa", min_value=1, max_value=30, value=10)
-        movimento_a = st.number_input("Movimento", min_value=1, max_value=20, value=6)
+    st.subheader("PV e PS")
 
-        st.subheader("Estados do Personagem")
-        lesao_grave_a = st.checkbox("🤕 Lesão Grave")
-        inconsciente_a = st.checkbox("😵‍💫 Inconsciente")
-        morrendo_a = st.checkbox("💀 Morrendo")
+    # --- PV com Barra ---
+    pv_atual_a = st.number_input("PV Atual", min_value=0, max_value=999, value=20)
+    pv_total_a = st.number_input("PV Total", min_value=1, max_value=999, value=20)
 
-        st.subheader("Inventário")
-        inventario_assassino = st.text_area("Itens, armas, equipamentos...")
+    pv_percent = (pv_atual_a / pv_total_a) * 100 if pv_total_a > 0 else 0
+
+    st.markdown(f"""
+        <div style="border:1px solid #555; border-radius:5px; height:22px; width:100%;">
+            <div style="
+                height:100%;
+                width:{pv_percent}%;
+                background-color:#e63946;
+                border-radius:5px;
+            "></div>
+        </div>
+        <p><b>{pv_atual_a} / {pv_total_a} PV</b></p>
+    """, unsafe_allow_html=True)
+
+    # --- PS com Barra ---
+    ps_atual_a = st.number_input("PS Atual", min_value=0, max_value=999, value=10)
+    ps_total_a = st.number_input("PS Total", min_value=1, max_value=999, value=10)
+
+    ps_percent = (ps_atual_a / ps_total_a) * 100 if ps_total_a > 0 else 0
+
+    st.markdown(f"""
+        <div style="border:1px solid #555; border-radius:5px; height:22px; width:100%;">
+            <div style="
+                height:100%;
+                width:{ps_percent}%;
+                background-color:#457b9d;
+                border-radius:5px;
+            "></div>
+        </div>
+        <p><b>{ps_atual_a} / {ps_total_a} PS</b></p>
+    """, unsafe_allow_html=True)
+
+    defesa_a = st.number_input("Defesa", min_value=1, max_value=30, value=10)
+    movimento_a = st.number_input("Movimento", min_value=1, max_value=20, value=6)
+
+    st.subheader("Estados do Personagem")
+    lesao_grave_a = st.checkbox("🤕 Lesão Grave")
+    inconsciente_a = st.checkbox("😵‍💫 Inconsciente")
+    morrendo_a = st.checkbox("💀 Morrendo")
+
+    st.subheader("Inventário")
+    inventario_assassino = st.text_area("Itens, armas, equipamentos...")
 
     # -----------------------------------------
     # ----------- SUB-ABA HABILIDADES ---------
@@ -1415,6 +1451,7 @@ elif active == "Mestre":
 
             if st.button("💾 Salvar Anotações"):
                 st.success("Anotações salvas!")
+
 
 
 
