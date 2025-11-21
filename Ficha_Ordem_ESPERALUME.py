@@ -462,47 +462,43 @@ elif active == "Rolador":
                 who=e['who']; total=e['total']; results=e['results']; level=e.get('level','')
                 color = colors.get(level,'white')
                 st.markdown(f"<div style='padding:5px; color:{color};'>{e['time']} — {who} → {total} (dados: {results}) {f'[{level}]' if level else ''}</div>", unsafe_allow_html=True)
-               
-# ───────────────────────────────────────────
-# ABA SECRETA DO ASSASSINO (aparece só com senha)
-# ───────────────────────────────────────────
+                
+# ---------------- ASSASSINO TAB ----------------
+elif active == "???":
 
-with st.sidebar.expander("Acesso do Mestre"):
-    senha_mestre = st.text_input("Senha do Mestre", type="password")
+    st.markdown("<div class='card'>", unsafe_allow_html=True)
+    st.markdown("<div class='header-title'>🩸 Ficha do Assassino</div>", unsafe_allow_html=True)
+    st.write("")
 
-if senha_mestre == "ordo2025":
-    aba_assassino = st.tabs(["???"])[0]
+    # Entrada da senha para o mestre
+    senha_assassino = st.text_input("Senha de Acesso (apenas Mestre):", type="password")
 
-    with aba_assassino:
-        st.title("Ficha do Assassino")
+    if senha_assassino == "ordo2025":
+        st.success("Acesso liberado. Bem-vindo, Mestre.")
 
-        st.subheader("Identidade")
-        nome_assassino = st.text_input("Nome do Assassino")
-        apelido_assassino = st.text_input("Apelido")
-        idade_assassino = st.number_input("Idade", min_value=0, max_value=200, step=1)
+        # CAMPOS DA FICHA
+        nome_a = st.text_input("Nome do Assassino")
+        apelido_a = st.text_input("Apelido")
+        idade_a = st.number_input("Idade", min_value=0, max_value=200, value=25)
+        historia_a = st.text_area("História", height=150)
 
-        st.subheader("História")
-        historia_assassino = st.text_area("História Completa")
+        classe_a = st.text_input("Classe do Outro Lado")
+        explicacao_classe_a = st.text_area("Explicação da Classe", height=130)
 
-        st.subheader("Outro Lado")
-        classe_outro_lado = st.text_input("Classe do Outro Lado")
-        explicacao_classe = st.text_area("Explicação da Classe")
-
-        st.subheader("Aparência")
-        aparencia_assassino = st.text_area("Descrição da Aparência do Assassino")
+        aparencia_a = st.text_area("Aparência do Assassino", height=120)
 
         st.subheader("Atributos")
-        colA1, colA2, colA3, colA4 = st.columns(4)
-        forca_a = colA1.number_input("Força", 1, 5, 1)
-        agilidade_a = colA2.number_input("Agilidade", 1, 5, 1)
-        intelecto_a = colA3.number_input("Intelecto", 1, 5, 1)
-        presenca_a = colA4.number_input("Presença", 1, 5, 1)
+        luta_a = st.number_input("Luta", min_value=0, max_value=10, value=2)
+        pontaria_a = st.number_input("Pontaria", min_value=0, max_value=10, value=2)
+        vigor_a = st.number_input("Vigor", min_value=0, max_value=10, value=2)
+        agilidade_a = st.number_input("Agilidade", min_value=0, max_value=10, value=2)
+        presença_a = st.number_input("Presença", min_value=0, max_value=10, value=2)
+        intelecto_a = st.number_input("Intelecto", min_value=0, max_value=10, value=2)
 
-        st.subheader("Status")
-        pv_assassino = st.number_input("PV", 1, 999, 10)
-        ps_assassino = st.number_input("PS", 1, 999, 10)
-        defesa_assassino = st.number_input("Defesa", 0, 50, 10)
-        movimento_assassino = st.number_input("Movimento", 0, 20, 6)
+        pv_a = st.number_input("PV", min_value=1, max_value=999, value=20)
+        ps_a = st.number_input("PS", min_value=1, max_value=999, value=10)
+        defesa_a = st.number_input("Defesa", min_value=1, max_value=30, value=10)
+        movimento_a = st.number_input("Movimento", min_value=1, max_value=20, value=6)
 
         st.subheader("Estados do Personagem")
         lesao_grave_a = st.checkbox("🤕 Lesão Grave")
@@ -512,8 +508,8 @@ if senha_mestre == "ordo2025":
         st.subheader("Inventário")
         inventario_assassino = st.text_area("Itens, armas, equipamentos...")
 
-else:
-    st.warning("Área restrita ao Mestre. Insira a senha correta para acessar.")
+    else:
+        st.warning("Área restrita ao Mestre. Insira a senha correta para acessar.")
             
 # ---------------- ITENS TAB ----------------
 if active == "Itens":
@@ -1384,6 +1380,7 @@ elif active == "Mestre":
 
             if st.button("💾 Salvar Anotações"):
                 st.success("Anotações salvas!")
+
 
 
 
