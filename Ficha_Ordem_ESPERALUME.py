@@ -488,11 +488,11 @@ elif active == "???":
     # -----------------------------------------
     # Criar as sub-abas (AGORA EXISTE!)
     # -----------------------------------------
-    sub_assassino1, sub_assassino2 = st.tabs(["Ficha", "Habilidades"])
+    sub1, sub2 = st.tabs(["Ficha", "Habilidades"])
 # -----------------------------------------
 # ------------ SUB-ABA FICHA --------------
 # -----------------------------------------
-with sub_assassino1:
+with sub1:
 
     nome_a = st.text_input("Nome do Assassino")
     apelido_a = st.text_input("Apelido")
@@ -564,7 +564,7 @@ with sub_assassino1:
     # -----------------------------------------
     # ----------- SUB-ABA HABILIDADES ---------
     # -----------------------------------------
-    with sub_assassino2:
+    with sub2:
 
         st.markdown("## 🧬 Habilidades do Assassino")
 
@@ -1453,6 +1453,7 @@ elif active == "Mestre":
 
             if st.button("💾 Salvar Anotações"):
                 st.success("Anotações salvas!")
+
 
 
 
