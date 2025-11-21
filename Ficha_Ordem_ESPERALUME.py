@@ -491,7 +491,7 @@ elif active == "???":
 # -----------------------------------------
 # ------------ SUB-ABA FICHA --------------
 # -----------------------------------------
-with sub1:
+with sub_ficha:
 
     nome_a = st.text_input("Nome do Assassino")
     apelido_a = st.text_input("Apelido")
@@ -563,7 +563,7 @@ with sub1:
     # -----------------------------------------
     # ----------- SUB-ABA HABILIDADES ---------
     # -----------------------------------------
-    with sub2:
+    with sub_habilidades:
 
         st.markdown("## 🧬 Habilidades do Assassino")
 
@@ -1452,6 +1452,7 @@ elif active == "Mestre":
 
             if st.button("💾 Salvar Anotações"):
                 st.success("Anotações salvas!")
+
 
 
 
