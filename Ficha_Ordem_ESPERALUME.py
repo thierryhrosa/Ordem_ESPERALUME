@@ -516,7 +516,7 @@ else:
     st.warning("Área restrita ao Mestre. Insira a senha correta para acessar.")
             
 # ---------------- ITENS TAB ----------------
-elif active == "Itens":
+if active == "Itens":
     cu = st.session_state.get("current_user")
     if not cu:
         st.warning("Faça login para ver seus itens.")
@@ -1384,6 +1384,7 @@ elif active == "Mestre":
 
             if st.button("💾 Salvar Anotações"):
                 st.success("Anotações salvas!")
+
 
 
 
