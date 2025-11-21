@@ -484,14 +484,10 @@ elif active == "???":
         else:
             st.warning("Área restrita ao Mestre. Insira a senha correta para acessar.")
             st.stop()  # 🔥 Para aqui! Nada abaixo aparece até a senha ser correta.
+            
+    # Se a senha estiver correta → remove o campo e mostra as sub-abas
+    sub_ficha, sub_habilidades = st.tabs(["Ficha", "Habilidades"])
 
-    # -----------------------------------------
-    # Criar as sub-abas (AGORA EXISTE!)
-    # -----------------------------------------
-sub-aba = st.tabs(["Ficha", "Habilidades"])
-
-with sub-aba:
-    sub1, sub2 = st.tabs(["Ficha", "Habilidades"])
 # -----------------------------------------
 # ------------ SUB-ABA FICHA --------------
 # -----------------------------------------
@@ -1456,6 +1452,7 @@ elif active == "Mestre":
 
             if st.button("💾 Salvar Anotações"):
                 st.success("Anotações salvas!")
+
 
 
 
