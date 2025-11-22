@@ -551,17 +551,49 @@ elif active == "???":
             <p><b>{ps_atual_a} / {ps_total_a} PS</b></p>
         """, unsafe_allow_html=True)
 
-        defesa_a = st.number_input("Defesa", min_value=1, max_value=30, value=10)
-        movimento_a = st.number_input("Movimento", min_value=1, max_value=20, value=6)
+        defesa_a = st.number_input("🛡️ Defesa", min_value=1, max_value=20, value=10)
+        movimento_a = st.number_input("🏃‍♂️ Movimento", min_value=1, max_value=10, value=6)
 
         st.subheader("Estados do Personagem")
         lesao_grave_a = st.checkbox("🤕 Lesão Grave")
         inconsciente_a = st.checkbox("😵‍💫 Inconsciente")
         morrendo_a = st.checkbox("💀 Morrendo")
 
-        st.subheader("Inventário")
-        inventario_assassino = st.text_area("Itens, armas, equipamentos...")
+                # --- INVENTÁRIO COM SISTEMA DE MOCHILA ---
+        st.write("")
+        st.markdown("**Inventário**", unsafe_allow_html=True)
 
+        # Número base de slots
+        base_slots = 8
+
+        # Verifica se a ficha já tem itens
+        items = ficha.get("itens", [""] * base_slots)
+
+        # Detecta se há Mochila
+        has_mochila = "Mochila" in items
+
+        # Bônus de +3 slots se tiver Mochila
+        bonus_slots = 3 if has_mochila else 0
+
+        # Total de slots
+        total_slots = base_slots + bonus_slots
+
+        st.markdown(f"Slots disponíveis: **{total_slots}** (Mochila: {'Sim' if has_mochila else 'Não'})")
+
+        # Expandindo a lista se necessário
+        if len(items) < total_slots:
+            items += [""] * (total_slots - len(items))
+
+        # Renderizando inputs de inventário
+        new_items = []
+        for i in range(total_slots):
+            val = st.text_input(
+                f"Item {i+1}",
+                value=items[i],
+                key=f"inv_{player}_{i}"
+            )
+            new_items.append(val)
+    
     # -----------------------------------------
     # ----------- SUB-ABA HABILIDADES ---------
     # -----------------------------------------
@@ -1454,6 +1486,7 @@ elif active == "Mestre":
 
             if st.button("💾 Salvar Anotações"):
                 st.success("Anotações salvas!")
+
 
 
 
