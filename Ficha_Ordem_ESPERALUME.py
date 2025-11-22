@@ -489,34 +489,34 @@ elif active == "Ficha":
     
         st.write("")
         if st.button("💾 Salvar Ficha"):
-        ficha_data = {
-            "nome": nome,
-            "apelido": apelido,
-            "idade": idade,
-            "historia": historia,
-            "descricao": descricao,
-            "atributos": new_attrs,
-            "pv_atual": pv_atual,
-            "pv_total": pv_total,
-            "ps_atual": ps_atual,
-            "ps_total": ps_total,
-            "pm": pm,
-            "pe": pe,
-            "nex": nex_val,
-            "itens": new_items,
-            "defesa": defesa,
-            "movimento": movimento,
-            "estados": {
-                "lesao_grave": lesao_grave,
-                "inconsciente": inconsciente,
-                "morrendo": morrendo
+            ficha_data = {
+                "nome": nome,
+                "apelido": apelido,
+                "idade": idade,
+                "historia": historia,
+                "descricao": descricao,
+                "atributos": new_attrs,
+                "pv_atual": pv_atual,
+                "pv_total": pv_total,
+                "ps_atual": ps_atual,
+                "ps_total": ps_total,
+                "pm": pm,
+                "pe": pe,
+                "nex": nex_val,
+                "itens": new_items,
+                "defesa": defesa,
+                "movimento": movimento,
+                "estados": {
+                    "lesao_grave": lesao_grave,
+                    "inconsciente": inconsciente,
+                    "morrendo": morrendo
+                }
             }
-        }
 
-        if save_to_github(player, ficha_data):
-            st.success("Ficha salva no GitHub com sucesso!")
-        else:
-            st.error("Erro ao salvar ficha.")
+            if save_to_github(player, ficha_data):
+                st.success("Ficha salva no GitHub com sucesso!")
+            else:
+                st.error("Erro ao salvar ficha.")
 
 # ---------------- ROLADOR TAB ----------------
 elif active == "Rolador":
@@ -1618,6 +1618,7 @@ elif active == "Mestre":
 
             if st.button("💾 Salvar Anotações"):
                 st.success("Anotações salvas!")
+
 
 
 
