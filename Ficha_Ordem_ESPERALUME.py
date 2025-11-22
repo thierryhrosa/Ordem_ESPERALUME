@@ -506,12 +506,12 @@ elif active == "???":
         aparencia_a = st.text_area("Aparência do Assassino", height=120)
 
         st.subheader("Atributos")
-        luta_a = st.number_input("Luta", min_value=0, max_value=10, value=2)
-        pontaria_a = st.number_input("Pontaria", min_value=0, max_value=10, value=2)
-        vigor_a = st.number_input("Vigor", min_value=0, max_value=10, value=2)
-        agilidade_a = st.number_input("Agilidade", min_value=0, max_value=10, value=2)
-        presença_a = st.number_input("Presença", min_value=0, max_value=10, value=2)
-        intelecto_a = st.number_input("Intelecto", min_value=0, max_value=10, value=2)
+        força_a = st.number_input("Força", min_value=1, max_value=10, value=1)
+        agilidade_a = st.number_input("Agilidade", min_value=1, max_value=10, value=1)
+        intelecto_a = st.number_input("Intelecto", min_value=1, max_value=10, value=1)
+        percepção_a = st.number_input("Percepção", min_value=1, max_value=10, value=1)
+        presença_a = st.number_input("Presença", min_value=1, max_value=10, value=1)
+        vigor_a = st.number_input("Vigor", min_value=1, max_value=10, value=1)
 
         st.subheader("PV e PS")
 
@@ -1461,6 +1461,7 @@ elif active == "Mestre":
 
             if st.button("💾 Salvar Anotações"):
                 st.success("Anotações salvas!")
+
 
 
 
