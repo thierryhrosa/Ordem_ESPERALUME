@@ -67,12 +67,17 @@ def save_ficha(name: str, data: dict):
     with open(ficha_path(name), "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=4)
 
-def load_ficha(name: str):
-    p = ficha_path(name)
-    if os.path.exists(p):
-        with open(p, "r", encoding="utf-8") as f:
-            return json.load(f)
-    return None
+def load_ficha(player):
+    url = f"https://api.github.com/repos/{USER}/{REPO}/contents/fichas/{player}.json"
+
+    r = requests.get(url, headers={"Authorization": f"token {GITHUB_TOKEN}"})
+    
+    if r.status_code != 200:
+        return {}
+
+    data = r.json()
+    content = base64.b64decode(data["content"]).decode("utf-8")
+    return json.loads(content
 
 def list_fichas():
     return sorted([fn.replace(".json", "") for fn in os.listdir(DATA_DIR) if fn.endswith(".json")])
@@ -1613,6 +1618,7 @@ elif active == "Mestre":
 
             if st.button("💾 Salvar Anotações"):
                 st.success("Anotações salvas!")
+
 
 
 
