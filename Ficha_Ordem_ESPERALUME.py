@@ -559,15 +559,15 @@ elif active == "???":
         inconsciente_a = st.checkbox("😵‍💫 Inconsciente")
         morrendo_a = st.checkbox("💀 Morrendo")
 
-st.subheader("Inventário (10 Slots)")
+        st.subheader("Inventário (10 Slots)")
 
-inventario_slots = []
-cols = st.columns(2)
+        inventario_slots = []
+        cols = st.columns(2)
 
-for i in range(10):
-    with cols[i % 2]:
-        slot = st.text_input(f"Slot {i+1}")
-        inventario_slots.append(slot)
+        for i in range(10):
+            with cols[i % 2]:
+                slot = st.text_input(f"Slot {i+1}")
+                inventario_slots.append(slot)
     
     # -----------------------------------------
     # ----------- SUB-ABA HABILIDADES ---------
@@ -1461,6 +1461,7 @@ elif active == "Mestre":
 
             if st.button("💾 Salvar Anotações"):
                 st.success("Anotações salvas!")
+
 
 
 
