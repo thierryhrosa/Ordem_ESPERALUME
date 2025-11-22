@@ -317,18 +317,40 @@ elif active == "Ficha":
         nex_val = int(nex_str.replace("%",""))
 
         # Renderizando barras
-        pontos = {
-            "PV": {"val": pv,"color":"#ff4d4d"},
-            "PS": {"val": ps,"color":"#3399ff"},
-            "PM": {"val": pm,"color":"#000000"},
-            "PE": {"val": pe,"color":"#ffffff"},
-            "NEX": {"val": nex_val,"color":"#9933ff"}
-        }
-        for key,p in pontos.items():
-            max_val = 25 if key in ["PV","PS"] else 3 if key=="PM" else 5 if key=="PE" else 100
-            width_pct = int((p['val']/max_val)*100) if max_val>0 else 0
-            st.markdown(f"<div style='margin-bottom:4px'>{key}: {p['val']} <div style='background:#222;border-radius:6px;width:100%;height:18px'><div style='width:{width_pct}%;background:{p['color']};height:100%;border-radius:6px'></div></div></div>", unsafe_allow_html=True)
-            
+pontos = {
+    "PV": {"val": pv_atual, "color": "#ff4d4d"},
+    "PS": {"val": ps_atual, "color": "#3399ff"},
+    "PM": {"val": pm, "color": "#000000"},
+    "PE": {"val": pe, "color": "#ffffff"},
+    "NEX": {"val": nex_val, "color": "#9933ff"}
+}
+
+for key, p in pontos.items():
+    if key == "PV":
+        max_val = pv_total
+    elif key == "PS":
+        max_val = ps_total
+    elif key == "PM":
+        max_val = 3
+    elif key == "PE":
+        max_val = 5
+    else:  # NEX
+        max_val = 100
+
+    width_pct = int((p['val'] / max_val) * 100) if max_val > 0 else 0
+
+    st.markdown(
+        f"""
+        <div style='margin-bottom:4px'>
+            <b>{key}:</b> {p['val']}
+            <div style='background:#222;border-radius:6px;width:100%;height:18px'>
+                <div style='width:{width_pct}%;background:{p['color']};height:100%;border-radius:6px'></div>
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+    
              # --- DEFESA E MOVIMENTO ---
         st.write("")
         st.markdown("**Combate**", unsafe_allow_html=True)
@@ -1542,6 +1564,7 @@ elif active == "Mestre":
 
             if st.button("💾 Salvar Anotações"):
                 st.success("Anotações salvas!")
+
 
 
 
