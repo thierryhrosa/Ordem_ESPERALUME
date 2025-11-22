@@ -484,32 +484,34 @@ elif active == "Ficha":
     
         st.write("")
         if st.button("💾 Salvar Ficha"):
-            new_f = {
-                "nome": nome,
-                "senha": ficha.get("senha", ""),
-                "apelido": apelido,
-                "idade": int(idade),
-                "classe": classe,
-                "o_que_faz": o_que,
-                "historia": historia,
-                "descricao": descricao,
-                "atributos": new_attrs,
-                "pv_atual": int(pv_atual),
-                "pv_total": int(pv_total),
-                "ps_atual": int(ps_atual),
-                "ps_total": int(ps_total),
-                "pm": int(pm),
-                "pe": int(pe),
-                "nex": nex_val,
-                "itens": new_items,
+        ficha_data = {
+            "nome": nome,
+            "apelido": apelido,
+            "idade": idade,
+            "historia": historia,
+            "descricao": descricao,
+            "atributos": new_attrs,
+            "pv_atual": pv_atual,
+            "pv_total": pv_total,
+            "ps_atual": ps_atual,
+            "ps_total": ps_total,
+            "pm": pm,
+            "pe": pe,
+            "nex": nex_val,
+            "itens": new_items,
+            "defesa": defesa,
+            "movimento": movimento,
+            "estados": {
                 "lesao_grave": lesao_grave,
                 "inconsciente": inconsciente,
-                "morrendo": morrendo,
-                "defesa": int(defesa),
-                "movimento": int(movimento),
+                "morrendo": morrendo
             }
-            save_ficha(player, new_f)
-            st.success("Ficha salva com sucesso.")
+        }
+
+        if save_to_github(player, ficha_data):
+            st.success("Ficha salva no GitHub com sucesso!")
+        else:
+            st.error("Erro ao salvar ficha.")
 
 # ---------------- ROLADOR TAB ----------------
 elif active == "Rolador":
@@ -1611,6 +1613,7 @@ elif active == "Mestre":
 
             if st.button("💾 Salvar Anotações"):
                 st.success("Anotações salvas!")
+
 
 
 
