@@ -559,40 +559,15 @@ elif active == "???":
         inconsciente_a = st.checkbox("😵‍💫 Inconsciente")
         morrendo_a = st.checkbox("💀 Morrendo")
 
-                # --- INVENTÁRIO COM SISTEMA DE MOCHILA ---
-        st.write("")
-        st.markdown("**Inventário**", unsafe_allow_html=True)
+st.subheader("Inventário (10 Slots)")
 
-        # Número base de slots
-        base_slots = 8
+inventario_slots = []
+cols = st.columns(2)
 
-        # Verifica se a ficha já tem itens
-        items = ficha.get("itens", [""] * base_slots)
-
-        # Detecta se há Mochila
-        has_mochila = "Mochila" in items
-
-        # Bônus de +3 slots se tiver Mochila
-        bonus_slots = 3 if has_mochila else 0
-
-        # Total de slots
-        total_slots = base_slots + bonus_slots
-
-        st.markdown(f"Slots disponíveis: **{total_slots}** (Mochila: {'Sim' if has_mochila else 'Não'})")
-
-        # Expandindo a lista se necessário
-        if len(items) < total_slots:
-            items += [""] * (total_slots - len(items))
-
-        # Renderizando inputs de inventário
-        new_items = []
-        for i in range(total_slots):
-            val = st.text_input(
-                f"Item {i+1}",
-                value=items[i],
-                key=f"inv_{player}_{i}"
-            )
-            new_items.append(val)
+for i in range(10):
+    with cols[i % 2]:
+        slot = st.text_input(f"Slot {i+1}")
+        inventario_slots.append(slot)
     
     # -----------------------------------------
     # ----------- SUB-ABA HABILIDADES ---------
@@ -1486,6 +1461,7 @@ elif active == "Mestre":
 
             if st.button("💾 Salvar Anotações"):
                 st.success("Anotações salvas!")
+
 
 
 
