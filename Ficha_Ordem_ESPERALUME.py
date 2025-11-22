@@ -1,9 +1,56 @@
 # Ordo_Fichas_v7_Final.py
 # Ordo Realitas — Sistema local de fichas (v7 final, com melhorias de D20 e Mestre)
 
+import requests
+import base64
+import json
 import streamlit as st
-import json, os, random
-from datetime import datetime
+
+# Pegando os dados do Secrets (que você configurou no Streamlit)
+GITHUB_TOKEN = st.secrets["GITHUB_TOKEN"]
+GITHUB_USER = st.secrets["GITHUB_USER"]
+GITHUB_REPO = st.secrets["GITHUB_REPO"]
+GITHUB_BRANCH = st.secrets["GITHUB_BRANCH"]
+
+def save_to_github(filename, data):
+    """
+    Salva a ficha como JSON no GitHub usando API.
+    filename → nome do arquivo (ex: nome do jogador)
+    data → dicionário com os dados da ficha
+    """
+
+    # Caminho onde vai salvar o arquivo no repositório
+    url = f"https://api.github.com/repos/{GITHUB_USER}/{GITHUB_REPO}/contents/fichas/{filename}.json"
+    
+    # Verifica se o arquivo já existe
+    r = requests.get(url, headers={"Authorization": f"token {GITHUB_TOKEN}"})
+    sha = r.json().get("sha") if r.status_code == 200 else None
+
+    # Converte o dicionário da ficha em texto JSON codificado em base64
+    content = base64.b64encode(
+        json.dumps(data, ensure_ascii=False, indent=4).encode("utf-8")
+    ).decode("utf-8")
+
+    # Monta o conteúdo enviado para o GitHub
+    payload = {
+        "message": f"Atualizando ficha: {filename}",
+        "content": content,
+        "branch": GITHUB_BRANCH
+    }
+    
+    # Se o arquivo já existia, precisa enviar o SHA
+    if sha:
+        payload["sha"] = sha
+
+    # Envia o arquivo para o GitHub
+    r = requests.put(
+        url,
+        headers={"Authorization": f"token {GITHUB_TOKEN}"},
+        json=payload
+    )
+
+    # Retorna True se salvou com sucesso
+    return r.status_code in [200, 201]
 
 # ---------------- CONFIG ----------------
 st.set_page_config(page_title="Ordem ESPERALUME", page_icon="🔆", layout="centered")
@@ -1564,6 +1611,7 @@ elif active == "Mestre":
 
             if st.button("💾 Salvar Anotações"):
                 st.success("Anotações salvas!")
+
 
 
 
