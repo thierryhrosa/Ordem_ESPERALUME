@@ -276,7 +276,7 @@ elif active == "Ficha":
             min_value=1,
             max_value=999,
             value=ficha.get("ps_total", 25),
-            key=f"ps_total_{player}
+            key=f"ps_total_{player}"
         )
 
         ps_percent = (ps_atual / ps_total) * 100 if ps_total > 0 else 0
@@ -425,8 +425,10 @@ elif active == "Ficha":
                 "historia": historia,
                 "descricao": descricao,
                 "atributos": new_attrs,
-                "pv": int(pv),
-                "ps": int(ps),
+                "pv_atual": int(pv_atual),
+                "pv_total": int(pv_total),
+                "ps_atual": int(ps_atual),
+                "ps_total": int(ps_total),
                 "pm": int(pm),
                 "pe": int(pe),
                 "nex": nex_val,
@@ -1540,6 +1542,7 @@ elif active == "Mestre":
 
             if st.button("💾 Salvar Anotações"):
                 st.success("Anotações salvas!")
+
 
 
 
