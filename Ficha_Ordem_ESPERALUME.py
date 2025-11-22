@@ -77,7 +77,7 @@ def load_ficha(player):
 
     data = r.json()
     content = base64.b64decode(data["content"]).decode("utf-8")
-    return json.loads(content
+    return json.loads(content)
 
 def list_fichas():
     return sorted([fn.replace(".json", "") for fn in os.listdir(DATA_DIR) if fn.endswith(".json")])
@@ -1618,6 +1618,7 @@ elif active == "Mestre":
 
             if st.button("💾 Salvar Anotações"):
                 st.success("Anotações salvas!")
+
 
 
 
