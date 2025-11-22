@@ -224,13 +224,92 @@ elif active == "Ficha":
                 v = st.number_input(a, min_value=1, max_value=5, value=ficha.get("atributos", {}).get(a, 1), key=f"attr_{a}_{player}")
                 new_attrs[a] = int(v)
 
-        st.write("")
-        st.markdown("**Pontos**")
-        # Pontos com barras estilizadas
-        pv = st.number_input("PV (0–25)", min_value=0, max_value=25, value=ficha.get("pv",25))
-        ps = st.number_input("PS (0–25)", min_value=0, max_value=25, value=ficha.get("ps",25))
-        pm = st.number_input("PM (0–3)", min_value=0, max_value=3, value=ficha.get("pm",0))
-        pe = st.number_input("PE (0–5)", min_value=0, max_value=5, value=ficha.get("pe",5))
+st.write("")
+st.markdown("## Vida e Sanidade", unsafe_allow_html=True)
+
+# ---------------- PV ----------------
+st.markdown("### 🩸 Pontos de Vida (PV)")
+
+pv_atual = st.number_input(
+    "PV Atual",
+    min_value=0,
+    max_value=999,
+    value=ficha.get("pv_atual", 25),
+    key=f"pv_atual_{player}"
+)
+
+pv_total = st.number_input(
+    "PV Total",
+    min_value=1,
+    max_value=999,
+    value=ficha.get("pv_total", 25),
+    key=f"pv_total_{player}"
+)
+
+pv_percent = (pv_atual / pv_total) * 100 if pv_total > 0 else 0
+
+st.markdown(f"""
+<div style="border:1px solid #555; border-radius:5px; height:22px; width:100%;">
+    <div style="
+        height:100%;
+        width:{pv_percent}%;
+        background-color:#e63946;
+        border-radius:5px;
+    "></div>
+</div>
+<p><b>{pv_atual} / {pv_total} PV</b></p>
+""", unsafe_allow_html=True)
+
+# ---------------- PS ----------------
+st.markdown("### 🧠 Pontos de Sanidade (PS)")
+
+ps_atual = st.number_input(
+    "PS Atual",
+    min_value=0,
+    max_value=999,
+    value=ficha.get("ps_atual", 25),
+    key=f"ps_atual_{player}"
+)
+
+ps_total = st.number_input(
+    "PS Total",
+    min_value=1,
+    max_value=999,
+    value=ficha.get("ps_total", 25),
+    key=f"ps_total_{player}"
+)
+
+ps_percent = (ps_atual / ps_total) * 100 if ps_total > 0 else 0
+
+st.markdown(f"""
+<div style="border:1px solid #555; border-radius:5px; height:22px; width:100%;">
+    <div style="
+        height:100%;
+        width:{ps_percent}%;
+        background-color:#457b9d;
+        border-radius:5px;
+    "></div>
+</div>
+<p><b>{ps_atual} / {ps_total} PS</b></p>
+""", unsafe_allow_html=True)
+
+# ---------------- PM ----------------
+pm = st.number_input(
+    "PM (0–3)",
+    min_value=0,
+    max_value=3,
+    value=ficha.get("pm", 0),
+    key=f"pm_{player}"
+)
+
+# ---------------- PE ----------------
+pe = st.number_input(
+    "PE (0–5)",
+    min_value=0,
+    max_value=5,
+    value=ficha.get("pe", 5),
+    key=f"pe_{player}"
+)
 
         # NEX como percentual
         nex_options = [str(x)+"%" for x in [0,5,10,15,20,25,30,35,40,45,50,60,70,80,90,100]]
@@ -1461,6 +1540,7 @@ elif active == "Mestre":
 
             if st.button("💾 Salvar Anotações"):
                 st.success("Anotações salvas!")
+
 
 
 
