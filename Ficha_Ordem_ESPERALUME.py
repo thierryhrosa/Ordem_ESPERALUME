@@ -54,9 +54,7 @@ def save_to_github(filename, data):
 
 # ---------------- CONFIG ----------------
 st.set_page_config(page_title="Ordem ESPERALUME", page_icon="🔆", layout="centered")
-DATA_DIR = "fichas"
 LOG_PATH = "roll_log.json"
-os.makedirs(DATA_DIR, exist_ok=True)
 MASTER_PASSWORD = "ordo2025"
 
 # ---------------- HELPERS ----------------
@@ -1618,6 +1616,7 @@ elif active == "Mestre":
 
             if st.button("💾 Salvar Anotações"):
                 st.success("Anotações salvas!")
+
 
 
 
